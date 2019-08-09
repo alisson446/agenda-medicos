@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'title' => 'SmartZAP',
+    'title' => 'Agenda',
 
     'title_prefix' => '',
 
@@ -85,7 +85,7 @@ return [
     |
     */
 
-    'dashboard_url' => 'home',
+    'dashboard_url' => 'schedules',
 
     'logout_url' => 'logout',
 
@@ -108,16 +108,11 @@ return [
     */
 
     'menu' => [
-        'CADASTROS',
+        'MENU',
         [
-            'text'        => 'Especialidades',
-            'url'         => 'specialties/',
-            'icon'        => 'stethoscope',
-        ],
-        [
-            'text'        => 'Prestadores',
-            'url'         => 'doctors/',
-            'icon'        => 'user-md',
+            'text'        => 'Agenda',
+            'url'         => 'schedules/',
+            'icon'        => 'calendar',
         ],
         [
             'text'        => 'Pacientes',
@@ -125,9 +120,25 @@ return [
             'icon'        => 'users',
         ],
         [
-            'text'        => 'Usuários',
-            'url'         => 'user/',
-            'icon'        => 'user',
+            'text'        => 'Prestadores',
+            'url'         => 'doctors/',
+            'icon'        => 'user-md',
+        ],
+        [
+        'text'    => 'Configurações',
+        'icon'    => 'fas fa-cog',
+        'submenu' => [
+                [
+                    'text'        => 'Especialidades',
+                    'url'         => 'specialties/',
+                    'icon'        => 'stethoscope',
+                ],
+                [
+                    'text'        => 'Usuários',
+                    'url'         => 'user/',
+                    'icon'        => 'user'
+                ]
+            ]
         ]
      ],
 

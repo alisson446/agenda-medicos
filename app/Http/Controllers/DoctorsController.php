@@ -42,6 +42,14 @@ class DoctorsController extends Controller
         return $doctors;
     }
 
+    public function getSpecialtiesByDoctor(Request $request)
+    {
+        $doctor_id = $request->get("id");
+
+        $specialties = $this->doctorsSpecialtiesService->getAllByDoctorId($doctor_id);
+        return $specialties;
+    }
+
     public function makeAdd(Request $request)
     {
         $id = $request->get("id");

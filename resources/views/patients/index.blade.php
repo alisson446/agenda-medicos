@@ -61,60 +61,32 @@
                 </div>
                 <div class="col-md-6">
                     <label>Email:</label>
-                    <input :style="errors.has('formEmail') ? 'border: 1px solid red !important;' : ''" type="email"
-                           name="formEmail"
-                           autocomplete="off" v-validate="'required'" v-model="form.email" class="form-control"/>
-                    <i v-show="errors.has('formEmail')" class="fa fa-warning"
-                       :style="errors.has('formEmail') ? 'color: red !important' : ''"></i>
-                    <span v-show="errors.has('formEmail')"
-                          :style="errors.has('formEmail') ? 'color: red !important' : ''">Email é obrigatório!</span>
+                    <input type="email" autocomplete="off" v-model="form.email" class="form-control"/>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-3">
                     <label>Sexo:</label>
-                    <select :style="errors.has('formGender') ? 'border: 1px solid red !important;' : ''"
-                            name="formGender"
-                            class="form-control" style="width: 100%;" v-model="form.gender" v-validate="'required'">
+                    <select class="form-control" style="width: 100%;" v-model="form.gender">
                         <option value="M">Masculino</option>
                         <option value="F">Feminino</option>
                         <option value="O">Outros</option>
                     </select>
-                    <i v-show="errors.has('formGender')" class="fa fa-warning"
-                       :style="errors.has('formGender') ? 'color: red !important' : ''"></i>
-                    <span v-show="errors.has('formGender')"
-                          :style="errors.has('formGender') ? 'color: red !important' : ''">Sexo é obrigatório!</span>
                 </div>
                 <div class="col-md-3">
                     <label>Data Nasc.:</label>
-                    <datepicker :style="errors.has('formBirthdayDate') ? 'border: 1px solid red !important;' : ''"
-                                name="formBirthdayDate" v-validate="'required'"
-                                placeholder="Data Nasc" :value="form.birthday_date" @set="setData"></datepicker>
-                    <i v-show="errors.has('formBirthdayDate')" class="fa fa-warning"
-                       :style="errors.has('formBirthdayDate') ? 'color: red !important' : ''"></i>
-                    <span v-show="errors.has('formBirthdayDate')"
-                          :style="errors.has('formBirthdayDate') ? 'color: red !important' : ''">Data Nasc. é obrigatório!</span>
+                    <datepicker name="formBirthdayDate" placeholder="Data Nasc" :value="form.birthday_date"
+                                @set="setData"></datepicker>
                 </div>
                 <div class="col-md-3">
                     <label>Telefone:</label>
-                    <input :style="errors.has('formBirthdayDate') ? 'border: 1px solid red !important;' : ''"
-                           type="text" autocomplete="off" v-model="form.phone_number"
-                           class="form-control" name="formPhoneNumber" v-validate="'required'"
+                    <input type="text" autocomplete="off" v-model="form.phone_number"
+                           class="form-control"
                            v-mask="'(##) ####-####'"/>
-                    <i v-show="errors.has('formPhoneNumber')" class="fa fa-warning"
-                       :style="errors.has('formPhoneNumber') ? 'color: red !important' : ''"></i>
-                    <span v-show="errors.has('formPhoneNumber')"
-                          :style="errors.has('formPhoneNumber') ? 'color: red !important' : ''">Telefone é obrigatório!</span>
                 </div>
                 <div class="col-md-3">
                     <label>Celular:</label>
-                    <input :style="errors.has('formCellNumber') ? 'border: 1px solid red !important;' : ''" type="text"
-                           autocomplete="off" v-model="form.cell_number" class="form-control"
-                           name="formCellNumber" v-validate="'required'" v-mask="'(##) #####-####'"/>
-                    <i v-show="errors.has('formCellNumber')" class="fa fa-warning"
-                       :style="errors.has('formCellNumber') ? 'color: red !important' : ''"></i>
-                    <span v-show="errors.has('formCellNumber')"
-                          :style="errors.has('formCellNumber') ? 'color: red !important' : ''">Celular é obrigatório!</span>
+                    <input type="text" autocomplete="off" v-model="form.cell_number" class="form-control" v-mask="'(##) #####-####'"/>
                 </div>
             </div>
             <div class="row">
@@ -143,39 +115,21 @@
                                 <div class="row">
                                     <div class="col-md-4">
                                         <label>Plano de Saúde:</label>
-                                        <select :style="errors.has('formPlan') ? 'border: 1px solid red !important;' : ''"
-                                                name="formPlan" class="form-control" v-validate="'required'"
-                                                style="width: 100%;" v-model="form.plan">
+                                        <select class="form-control" style="width: 100%;" v-model="form.plan">
                                             <option value="1">Particular</option>
                                             <option value="2">Público</option>
                                         </select>
-                                        <i v-show="errors.has('formPlan')" class="fa fa-warning"
-                                           :style="errors.has('formPlan') ? 'color: red !important' : ''"></i>
-                                        <span v-show="errors.has('formPlan')"
-                                              :style="errors.has('formPlan') ? 'color: red !important' : ''">Plano é obrigatório!</span>
                                     </div>
                                     <div class="col-md-4">
                                         <label>Núm. da Carteira:</label>
-                                        <input :style="errors.has('formPlanCardNumber') ? 'border: 1px solid red !important;' : ''"
-                                               v-validate="'required'" name="formPlanCardNumber" type="number" min="0"
+                                        <input name="formPlanCardNumber" type="number" min="0"
                                                autocomplete="off"
                                                v-model="form.plan_card_number" class="form-control"/>
-                                        <i v-show="errors.has('formPlanCardNumber')" class="fa fa-warning"
-                                           :style="errors.has('formPlanCardNumber') ? 'color: red !important' : ''"></i>
-                                        <span v-show="errors.has('formPlanCardNumber')"
-                                              :style="errors.has('formPlanCardNumber') ? 'color: red !important' : ''">Num. da carteira é obrigatório!</span>
                                     </div>
                                     <div class="col-md-4">
                                         <label>Valid. Carteira:</label>
-                                        <datepicker
-                                                :style="errors.has('formPlanCardValid') ? 'border: 1px solid red !important;' : ''"
-                                                v-validate="'required'" name="formPlanCardValid"
-                                                placeholder="Valid. Carteira" :value="form.plan_card_valid"
+                                        <datepicker placeholder="Valid. Carteira" :value="form.plan_card_valid"
                                                 @set="setDataPlanCardValid"></datepicker>
-                                        <i v-show="errors.has('formPlanCardValid')" class="fa fa-warning"
-                                           :style="errors.has('formPlanCardValid') ? 'color: red !important' : ''"></i>
-                                        <span v-show="errors.has('formPlanCardValid')"
-                                              :style="errors.has('formPlanCardValid') ? 'color: red !important' : ''">Valid. da carteira é obrigatório!</span>
                                     </div>
                                 </div>
                             </div>
@@ -184,8 +138,7 @@
                                     <div class="col-md-4">
                                         <label>Cep:</label>
                                         <div class="input-group input-group-sm">
-                                            <input :style="errors.has('formAddressCep') ? 'border: 1px solid red !important;' : ''"
-                                                   v-validate="'required'" name="formAddressCep" type="text"
+                                            <input type="text"
                                                    class="form-control" autocomplete="off"
                                                    v-model="form.address_cep" v-mask="'#####-###'">
                                             <span class="input-group-btn" @click="searchByCep()">
@@ -194,34 +147,18 @@
                                             </span>
 
                                         </div>
-                                        <div class="col-md-12">
-                                            <i v-show="errors.has('formAddressCep')" class="fa fa-warning"
-                                               :style="errors.has('formAddressCep') ? 'color: red !important' : ''"></i>
-                                            <span v-show="errors.has('formAddressCep')"
-                                                  :style="errors.has('formAddressCep') ? 'color: red !important' : ''">Cep é obrigatório!</span>
-                                        </div>
                                     </div>
                                     <div class="col-md-4">
                                         <label>Logradouro:</label>
-                                        <input :style="errors.has('formAddressStreet') ? 'border: 1px solid red !important;' : ''"
-                                               v-validate="'required'" name="formAddressStreet" type="text"
+                                        <input type="text"
                                                autocomplete="off" v-model="form.address_street"
                                                class="form-control"/>
-                                        <i v-show="errors.has('formAddressStreet')" class="fa fa-warning"
-                                           :style="errors.has('formAddressStreet') ? 'color: red !important' : ''"></i>
-                                        <span v-show="errors.has('formAddressStreet')"
-                                              :style="errors.has('formAddressStreet') ? 'color: red !important' : ''">Rua é obrigatória!</span>
                                     </div>
                                     <div class="col-md-4">
                                         <label>Número:</label>
-                                        <input :style="errors.has('formAddressNumber') ? 'border: 1px solid red !important;' : ''"
-                                               v-validate="'required'" name="formAddressNumber" type="number" min="0"
+                                        <input type="number" min="0"
                                                autocomplete="off"
                                                v-model="form.address_number" class="form-control"/>
-                                        <i v-show="errors.has('formAddressNumber')" class="fa fa-warning"
-                                           :style="errors.has('formAddressNumber') ? 'color: red !important' : ''"></i>
-                                        <span v-show="errors.has('formAddressNumber')"
-                                              :style="errors.has('formAddressNumber') ? 'color: red !important' : ''">Número é obrigatório!</span>
                                     </div>
 
                                 </div>
@@ -235,50 +172,33 @@
                                 <div class="row">
                                     <div class="col-md-4">
                                         <label>País:</label>
-                                        <select :style="errors.has('countryId') ? 'border: 1px solid red !important;' : ''"
-                                                v-validate="'required'" name="countryId"
-                                                @change="changeAddress($event,'country')"
+                                        <select @change="changeAddress($event,'country')"
                                                 class="form-control country_id" style="width: 100%;"
                                                 v-model="form.country_id">
                                             <option v-for="(value,index) in listCountries" :value="value.id">@{{
                                                 value.name }}
                                             </option>
                                         </select>
-                                        <i v-show="errors.has('countryId')" class="fa fa-warning"
-                                           :style="errors.has('countryId') ? 'color: red !important' : ''"></i>
-                                        <span v-show="errors.has('countryId')"
-                                              :style="errors.has('countryId') ? 'color: red !important' : ''">País é obrigatório!</span>
                                     </div>
                                     <div class="col-md-4">
                                         <label>Estado:</label>
-                                        <select :style="errors.has('stateId') ? 'border: 1px solid red !important;' : ''"
-                                                v-validate="'required'" name="stateId"
-                                                @change="changeAddress($event,'state')" disabled="disabled"
+                                        <select @change="changeAddress($event,'state')" disabled="disabled"
                                                 class="form-control state_id" style="width: 100%;"
                                                 v-model="form.state_id">
                                             <option v-for="(value,index) in listStates" :value="value.id">@{{ value.name
                                                 }}
                                             </option>
                                         </select>
-                                        <i v-show="errors.has('stateId')" class="fa fa-warning"
-                                           :style="errors.has('stateId') ? 'color: red !important' : ''"></i>
-                                        <span v-show="errors.has('stateId')"
-                                              :style="errors.has('stateId') ? 'color: red !important' : ''">Estado é obrigatório!</span>
                                     </div>
                                     <div class="col-md-4">
                                         <label>Cidade:</label>
-                                        <select :style="errors.has('cityId') ? 'border: 1px solid red !important;' : ''"
-                                                v-validate="'required'" name="cityId" disabled="disabled"
+                                        <select disabled="disabled"
                                                 class="form-control city_id"
                                                 style="width: 100%;" v-model="form.city_id">
                                             <option v-for="(value,index) in listCities" :value="value.id">@{{ value.name
                                                 }}
                                             </option>
                                         </select>
-                                        <i v-show="errors.has('cityId')" class="fa fa-warning"
-                                           :style="errors.has('cityId') ? 'color: red !important' : ''"></i>
-                                        <span v-show="errors.has('cityId')"
-                                              :style="errors.has('cityId') ? 'color: red !important' : ''">Cidade é obrigatória!</span>
                                     </div>
                                 </div>
                             </div>
@@ -297,19 +217,13 @@
                                     </div>
                                     <div class="col-md-4">
                                         <label>CPF:</label>
-                                        <input :style="errors.has('cpf') ? 'border: 1px solid red !important;' : ''"
-                                               v-validate="'required'" name="cpf" type="text" autocomplete="off"
+                                        <input type="text" autocomplete="off"
                                                v-model="form.cpf"
                                                class="form-control" v-mask="'###.###.###-##'"/>
-                                        <i v-show="errors.has('cpf')" class="fa fa-warning"
-                                           :style="errors.has('cpf') ? 'color: red !important' : ''"></i>
-                                        <span v-show="errors.has('cpf')"
-                                              :style="errors.has('cpf') ? 'color: red !important' : ''">CPF é obrigatória!</span>
                                     </div>
                                     <div class="col-md-2">
                                         <label>Estado Civil:</label>
-                                        <select :style="errors.has('civilStatus') ? 'border: 1px solid red !important;' : ''"
-                                                v-validate="'required'" name="civilStatus" class="form-control"
+                                        <select class="form-control"
                                                 style="width: 100%;"
                                                 v-model="form.civil_status">
                                             <option value="1">Solteiro</option>
@@ -318,10 +232,6 @@
                                             <option value="4">Separado</option>
                                             <option value="5">Estável</option>
                                         </select>
-                                        <i v-show="errors.has('civilStatus')" class="fa fa-warning"
-                                           :style="errors.has('civilStatus') ? 'color: red !important' : ''"></i>
-                                        <span v-show="errors.has('civilStatus')"
-                                              :style="errors.has('civilStatus') ? 'color: red !important' : ''">Estado Civil é obrigatório!</span>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -349,37 +259,21 @@
                                 <div class="row">
                                     <div class="col-md-2">
                                         <label>Identidade:</label>
-                                        <input :style="errors.has('identity') ? 'border: 1px solid red !important;' : ''"
-                                               v-validate="'required'" name="identity" type="text" autocomplete="off"
+                                        <input type="text" autocomplete="off"
                                                v-model="form.identity"
                                                class="form-control"/>
-                                        <i v-show="errors.has('identity')" class="fa fa-warning"
-                                           :style="errors.has('identity') ? 'color: red !important' : ''"></i>
-                                        <span v-show="errors.has('identity')"
-                                              :style="errors.has('identity') ? 'color: red !important' : ''">Identidade é obrigatória!</span>
                                     </div>
                                     <div class="col-md-2">
                                         <label>Data emissão:</label>
-                                        <datepicker
-                                                :style="errors.has('issuanceDate') ? 'border: 1px solid red !important;' : ''"
-                                                v-validate="'required'" name="issuanceDate" placeholder="Data emissão"
+                                        <datepicker placeholder="Data emissão"
                                                 :value="form.issuance_date"
                                                 @set="setDataIssuanceDate"></datepicker>
-                                        <i v-show="errors.has('issuanceDate')" class="fa fa-warning"
-                                           :style="errors.has('issuanceDate') ? 'color: red !important' : ''"></i>
-                                        <span v-show="errors.has('issuanceDate')"
-                                              :style="errors.has('issuanceDate') ? 'color: red !important' : ''">Data emissão é obrigatória!</span>
                                     </div>
                                     <div class="col-md-2">
                                         <label>Órgão emissor:</label>
-                                        <input :style="errors.has('issuingAgency') ? 'border: 1px solid red !important;' : ''"
-                                               v-validate="'required'" name="issuingAgency" type="text"
+                                        <input type="text"
                                                autocomplete="off" v-model="form.issuing_agency"
                                                class="form-control"/>
-                                        <i v-show="errors.has('issuingAgency')" class="fa fa-warning"
-                                           :style="errors.has('issuingAgency') ? 'color: red !important' : ''"></i>
-                                        <span v-show="errors.has('issuingAgency')"
-                                              :style="errors.has('issuingAgency') ? 'color: red !important' : ''">Órgão emissão é obrigatório!</span>
                                     </div>
                                     <div class="col-md-2">
                                         <label>N Reg. Nasc.:</label>
@@ -388,18 +282,13 @@
                                     </div>
                                     <div class="col-md-2">
                                         <label>Tipo sanguíneo:</label>
-                                        <select :style="errors.has('bloodType') ? 'border: 1px solid red !important;' : ''"
-                                                v-validate="'required'" name="bloodType" class="form-control"
+                                        <select class="form-control"
                                                 style="width: 100%;" v-model="form.blood_type">
                                             <option value="1">AB+</option>
                                             <option value="2">AB-</option>
                                             <option value="3">O+</option>
                                             <option value="4">O-</option>
                                         </select>
-                                        <i v-show="errors.has('bloodType')" class="fa fa-warning"
-                                           :style="errors.has('bloodType') ? 'color: red !important' : ''"></i>
-                                        <span v-show="errors.has('bloodType')"
-                                              :style="errors.has('bloodType') ? 'color: red !important' : ''">Tipo sanguíneo é obrigatório!</span>
                                     </div>
                                     <div class="col-md-2">
                                         <label>CNS:</label>

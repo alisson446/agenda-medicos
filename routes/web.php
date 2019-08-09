@@ -17,15 +17,22 @@ Route::post("/login","UserController@makeLogin")->name("makeLogin");
 Route::middleware(['auth.doctor'])->group(function() {
 
     Route::get("/",function() {
-        return redirect()->route("specialties");
+        return redirect()->route("schedules");
     });
     Route::get("/logout","UserController@logout");
-    
+
     Route::post("/countries","AddressController@getCountries");
     Route::post("/states","AddressController@getStates");
     Route::post("/cities","AddressController@getCities");
     Route::post("/searchByCep","AddressController@searchByCep");
     Route::post("/professional_advices","DoctorsController@getProfessionalAdvices");
+
+    Route::prefix('schedules')->group(function() {
+        Route::get("/","SchedulesController@index")->name("schedules");
+        Route::post("/list","SchedulesController@getSchedules")->name("schedules.list");
+        Route::post("/add","SchedulesController@makeAdd")->name("schedules.make.add");
+        Route::post("/delete","SchedulesController@delete")->name("schedules.delete");
+    });
 
     Route::prefix('specialties')->group(function() {
 		Route::get("/","SpecialtiesController@index")->name("specialties");
@@ -45,6 +52,7 @@ Route::middleware(['auth.doctor'])->group(function() {
         Route::get("/","DoctorsController@index")->name("doctors");
         Route::get("/list","DoctorsController@getDoctors")->name("doctors.list");
         Route::post("/add","DoctorsController@makeAdd")->name("doctors.make.add");
+        Route::post("/getSpecialtiesByDoctor","DoctorsController@getSpecialtiesByDoctor")->name("doctors.getSpecialtiesByDoctor");
         Route::delete("/delete/{id}","DoctorsController@delete")->name("doctors.delete");
     });
 
