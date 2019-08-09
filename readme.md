@@ -24,15 +24,6 @@ cp /var/www/html/.env.example /var/www/html/.env
 cd /var/www/html ; php artisan key:generate
 ```
 
-## Habilitando serviço de php-fpm e nginx
-```
-systemctl start php-fpm
-systemctl enable php-fpm
-systemctl start nginx
-systemctl enable nginx
-systemctl enable iptables
-systemctl restart iptables
-```
 
 ## Cria banco de dados
 ```
