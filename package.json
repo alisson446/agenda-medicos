@@ -28,7 +28,6 @@
         "@fullcalendar/vue": "^4.2.2",
         "body-parser": "latest",
         "express": "latest",
-        "mongodb": "^3.1.1",
         "node-cmd": "^3.0.0",
         "request": "latest",
         "sweetalert": "^2.1.2",
