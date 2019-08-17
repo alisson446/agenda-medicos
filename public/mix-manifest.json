@@ -1,9 +1,8 @@
 {
     "/js/app.js": "/js/app.js",
-    "/sass/app.css": "/sass/app.css",
     "/js/user.js": "/js/user.js",
-    "/js/painel.js": "/js/painel.js",
-    "/js/notifications.js": "/js/notifications.js",
-    "/js/facebook.js": "/js/facebook.js",
-    "/js/menuRules.js": "/js/menuRules.js"
+    "/js/specialties.js": "/js/specialties.js",
+    "/js/schedules.js": "/js/schedules.js",
+    "/js/patients.js": "/js/patients.js",
+    "/js/doctors.js": "/js/doctors.js"
 }

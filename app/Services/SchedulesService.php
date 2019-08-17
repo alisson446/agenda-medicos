@@ -16,9 +16,12 @@ class SchedulesService extends Service
         return "$year-$month-$day $hour";
     }
 
-    public function getAllByDoctorId($doctor_id)
+    public function getAllByDoctorId($doctor_ids)
     {
-        $schedules = Schedules::where('doctor_id', $doctor_id)->get();
+        if (!is_array($doctor_ids))
+            $doctor_ids = [ $doctor_ids ];
+
+        $schedules = Schedules::whereIn('doctor_id', $doctor_ids)->get();
         return $schedules;
     }
 }
