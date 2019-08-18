@@ -161,7 +161,7 @@
     </div>
 
     <div class="row justify-content-center">
-      <div class="col-md-2">
+      <div class="col-md-2" style="margin-top: 5em;">
         <div class="card">
           <div class="card-body">
             <h5 class="card-title"><center>Profissionais</center></h5>
@@ -327,13 +327,27 @@
       add() {
         let value = this.form;
         let self = this;
+
         this.$validator.validateAll().then((result) => {
           if (result) {
             axios.post("/schedules/add", value).then(function (res) {
               jQuery("#modalForm").modal('hide');
-              Vue.set(self, "events", res.data);
-              swal("Sucesso!", (value.id === null) ? "Consulta cadastrada com sucesso!" :
-                "Consulta editada com sucesso!", 'success');
+              let events = [...self.events];
+
+              if (value.id === null) {
+                events.push(res.data);
+              } else {
+                let eventIndex = self.events.findIndex(res => res.id === value.id);
+                events[eventIndex] = res.data;
+              }
+
+              Vue.set(self, "events", events);
+              swal(
+                "Sucesso!",
+                (value.id === null) ? "Consulta cadastrada com sucesso!" : "Consulta editada com sucesso!",
+                'success'
+              );
+
               setTimeout(() => {
                 self.resetForm();
               }, 100);
@@ -354,14 +368,18 @@
           })
           .then((willDelete) => {
             if (willDelete) {
-              swal("Consulta deletada com sucesso!", {
-                icon: "success",
-              });
               axios.post("/schedules/delete", {
                 "schedule_id": schedule_id,
                 "doctor_id": data.doctor_id
-              }).then(function (res) {
-                Vue.set(self, "events", res.data);
+              })
+              .then(function (res) {
+                let events = [...self.events];
+                let eventIndex = self.events.findIndex(res => res.id === schedule_id);
+                events.splice(eventIndex, 1);
+
+                Vue.set(self, "events", events);
+
+                swal("Consulta deletada com sucesso!", { icon: "success", });
                 jQuery("#modalForm").modal('hide');
                 setTimeout(() => {
                   self.resetForm();

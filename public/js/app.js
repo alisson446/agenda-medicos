@@ -71944,6 +71944,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__fullcalendar_daygrid__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__fullcalendar_timegrid__ = __webpack_require__(72);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__fullcalendar_interaction__ = __webpack_require__(73);
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 //
 //
 //
@@ -72286,12 +72288,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     add: function add() {
       var value = this.form;
       var self = this;
+
       this.$validator.validateAll().then(function (result) {
         if (result) {
           axios.post("/schedules/add", value).then(function (res) {
             jQuery("#modalForm").modal('hide');
-            Vue.set(self, "events", res.data);
+            var events = [].concat(_toConsumableArray(self.events));
+
+            if (value.id === null) {
+              events.push(res.data);
+            } else {
+              var eventIndex = self.events.findIndex(function (res) {
+                return res.id === value.id;
+              });
+              events[eventIndex] = res.data;
+            }
+
+            Vue.set(self, "events", events);
             swal("Sucesso!", value.id === null ? "Consulta cadastrada com sucesso!" : "Consulta editada com sucesso!", 'success');
+
             setTimeout(function () {
               self.resetForm();
             }, 100);
@@ -72313,14 +72328,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         dangerMode: true
       }).then(function (willDelete) {
         if (willDelete) {
-          swal("Consulta deletada com sucesso!", {
-            icon: "success"
-          });
           axios.post("/schedules/delete", {
             "schedule_id": schedule_id,
             "doctor_id": data.doctor_id
           }).then(function (res) {
-            Vue.set(self, "events", res.data);
+            var events = [].concat(_toConsumableArray(self.events));
+            var eventIndex = self.events.findIndex(function (res) {
+              return res.id === schedule_id;
+            });
+            events.splice(eventIndex, 1);
+
+            Vue.set(self, "events", events);
+
+            swal("Consulta deletada com sucesso!", { icon: "success" });
             jQuery("#modalForm").modal('hide');
             setTimeout(function () {
               self.resetForm();
@@ -77329,84 +77349,93 @@ var render = function() {
     ),
     _vm._v(" "),
     _c("div", { staticClass: "row justify-content-center" }, [
-      _c("div", { staticClass: "col-md-2" }, [
-        _c("div", { staticClass: "card" }, [
-          _c("div", { staticClass: "card-body" }, [
+      _c(
+        "div",
+        { staticClass: "col-md-2", staticStyle: { "margin-top": "5em" } },
+        [
+          _c("div", { staticClass: "card" }, [
+            _c("div", { staticClass: "card-body" }, [
+              _c(
+                "h5",
+                { staticClass: "card-title" },
+                [_c("center", [_vm._v("Profissionais")])],
+                1
+              )
+            ]),
+            _vm._v(" "),
             _c(
-              "h5",
-              { staticClass: "card-title" },
-              [_c("center", [_vm._v("Profissionais")])],
-              1
-            )
-          ]),
-          _vm._v(" "),
-          _c(
-            "ul",
-            { staticClass: "list-group list-group-flush" },
-            _vm._l(_vm.listDoctors, function(value, index) {
-              return _c("li", { key: index, staticClass: "list-group-item" }, [
-                _c("div", { staticClass: "form-check" }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.doctorFilter,
-                        expression: "doctorFilter"
-                      }
-                    ],
-                    staticClass: "form-check-input",
-                    attrs: { type: "checkbox", id: value.id },
-                    domProps: {
-                      value: value.id,
-                      checked: Array.isArray(_vm.doctorFilter)
-                        ? _vm._i(_vm.doctorFilter, value.id) > -1
-                        : _vm.doctorFilter
-                    },
-                    on: {
-                      change: function($event) {
-                        var $$a = _vm.doctorFilter,
-                          $$el = $event.target,
-                          $$c = $$el.checked ? true : false
-                        if (Array.isArray($$a)) {
-                          var $$v = value.id,
-                            $$i = _vm._i($$a, $$v)
-                          if ($$el.checked) {
-                            $$i < 0 && (_vm.doctorFilter = $$a.concat([$$v]))
-                          } else {
-                            $$i > -1 &&
-                              (_vm.doctorFilter = $$a
-                                .slice(0, $$i)
-                                .concat($$a.slice($$i + 1)))
+              "ul",
+              { staticClass: "list-group list-group-flush" },
+              _vm._l(_vm.listDoctors, function(value, index) {
+                return _c(
+                  "li",
+                  { key: index, staticClass: "list-group-item" },
+                  [
+                    _c("div", { staticClass: "form-check" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.doctorFilter,
+                            expression: "doctorFilter"
                           }
-                        } else {
-                          _vm.doctorFilter = $$c
+                        ],
+                        staticClass: "form-check-input",
+                        attrs: { type: "checkbox", id: value.id },
+                        domProps: {
+                          value: value.id,
+                          checked: Array.isArray(_vm.doctorFilter)
+                            ? _vm._i(_vm.doctorFilter, value.id) > -1
+                            : _vm.doctorFilter
+                        },
+                        on: {
+                          change: function($event) {
+                            var $$a = _vm.doctorFilter,
+                              $$el = $event.target,
+                              $$c = $$el.checked ? true : false
+                            if (Array.isArray($$a)) {
+                              var $$v = value.id,
+                                $$i = _vm._i($$a, $$v)
+                              if ($$el.checked) {
+                                $$i < 0 &&
+                                  (_vm.doctorFilter = $$a.concat([$$v]))
+                              } else {
+                                $$i > -1 &&
+                                  (_vm.doctorFilter = $$a
+                                    .slice(0, $$i)
+                                    .concat($$a.slice($$i + 1)))
+                              }
+                            } else {
+                              _vm.doctorFilter = $$c
+                            }
+                          }
                         }
-                      }
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "label",
-                    {
-                      staticClass: "form-check-label",
-                      attrs: { for: value.id }
-                    },
-                    [
-                      _vm._v(
-                        "\n                " +
-                          _vm._s(value.name) +
-                          "\n              "
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "label",
+                        {
+                          staticClass: "form-check-label",
+                          attrs: { for: value.id }
+                        },
+                        [
+                          _vm._v(
+                            "\n                " +
+                              _vm._s(value.name) +
+                              "\n              "
+                          )
+                        ]
                       )
-                    ]
-                  )
-                ])
-              ])
-            }),
-            0
-          )
-        ])
-      ]),
+                    ])
+                  ]
+                )
+              }),
+              0
+            )
+          ])
+        ]
+      ),
       _vm._v(" "),
       _c(
         "div",

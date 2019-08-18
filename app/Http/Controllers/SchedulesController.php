@@ -76,7 +76,7 @@ class SchedulesController extends Controller
             $this->scheduleService->create($data);
         }
 
-        return $this->scheduleService->getAllByDoctorId($doctor_id);
+        return $data;
     }
 
     public function delete(Request $request)
@@ -85,7 +85,7 @@ class SchedulesController extends Controller
         $doctor_id = $request->get("doctor_id");
 
         $this->scheduleService->delete($id);
-        return $this->scheduleService->getAllByDoctorId($doctor_id);
+        return $doctor_id;
     }
 
 }
