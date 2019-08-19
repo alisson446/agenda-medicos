@@ -25,9 +25,9 @@
                 nextMonthCaption: "Próximo mês",
                 prevMonthCaption: "Mês anterior",
                 attr: {
-                    readonly: true,
+                    readonly: false,
                     name: this.nameValidate,
-                    placeholder: this.placeholder,
+                    placeholder: this.placeholder
                 }
             }
         },

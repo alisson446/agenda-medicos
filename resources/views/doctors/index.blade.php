@@ -76,7 +76,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <label>Telefone:</label>
-                    <input :style="errors.has('formBirthdayDate') ? 'border: 1px solid red !important;' : ''"
+                    <input :style="errors.has('formPhoneNumber') ? 'border: 1px solid red !important;' : ''"
                            type="text" autocomplete="off" v-model="form.phone_number"
                            class="form-control" name="formPhoneNumber" v-validate="'required'"
                            v-mask="'(##) ####-####'"/>

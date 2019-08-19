@@ -17,7 +17,7 @@ var app = new Vue({
             "name": null,
             "email": null,
             "gender": null,
-            "birthday_date": null,
+            "birthday_date": '01-01-2019',
             "phone_number": null,
             "cell_number": null,
             "address_cep": null,

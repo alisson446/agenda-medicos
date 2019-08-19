@@ -1,7 +1,7 @@
 <template>
 
 
-    <div class="modal fade" id="modalForm" tabindex="-1" role="dialog">
+    <div class="modal fade" :id="id || 'modalForm'" tabindex="-1" role="dialog">
 
         <div class="modal-dialog modal-dialog-centered" :class="size" role="document">
             <div class="modal-content" id="dc_modal_content">
@@ -35,7 +35,7 @@
 
 <script>
     export default {
-        props: ['title', 'data', 'size'],
+        props: ['title', 'data', 'size', 'id'],
         data() {
             return {}
         },

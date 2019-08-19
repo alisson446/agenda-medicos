@@ -25013,7 +25013,7 @@ var main = Object(__WEBPACK_IMPORTED_MODULE_0__fullcalendar_core__["S" /* create
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(18);
-(function webpackMissingModule() { throw new Error("Cannot find module \"C:\\Users\\Usuario\\Desktop\\agenda-medicos\\resources\\assets\\sass\\app.scss\""); }());
+module.exports = __webpack_require__(83);
 
 
 /***/ }),
@@ -70920,7 +70920,7 @@ var content = __webpack_require__(51);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(7)("3f549ba8", content, false, {});
+var update = __webpack_require__(7)("2d997170", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -71019,7 +71019,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             nextMonthCaption: "Próximo mês",
             prevMonthCaption: "Mês anterior",
             attr: {
-                readonly: true,
+                readonly: false,
                 name: this.nameValidate,
                 placeholder: this.placeholder
             }
@@ -71677,7 +71677,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['title', 'data', 'size'],
+    props: ['title', 'data', 'size', 'id'],
     data: function data() {
         return {};
     },
@@ -71701,7 +71701,7 @@ var render = function() {
     "div",
     {
       staticClass: "modal fade",
-      attrs: { id: "modalForm", tabindex: "-1", role: "dialog" }
+      attrs: { id: _vm.id || "modalForm", tabindex: "-1", role: "dialog" }
     },
     [
       _c(
@@ -71861,7 +71861,7 @@ var content = __webpack_require__(65);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(7)("67432316", content, false, {});
+var update = __webpack_require__(7)("42756ed5", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -77708,7 +77708,7 @@ var content = __webpack_require__(80);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(7)("3404d3db", content, false, {});
+var update = __webpack_require__(7)("72b9777b", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -77845,6 +77845,12 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-b5665872", module.exports)
   }
 }
+
+/***/ }),
+/* 83 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);
