@@ -70,13 +70,13 @@ class SchedulesController extends Controller
         ];
 
         if ($id) {
-            $this->scheduleService->update($data, $id);
+            $dataSaved = $this->scheduleService->update($data, $id);
         } else {
             unset($data["id"]);
-            $this->scheduleService->create($data);
+            $dataSaved = $this->scheduleService->create($data);
         }
 
-        return $data;
+        return $dataSaved;
     }
 
     public function delete(Request $request)
