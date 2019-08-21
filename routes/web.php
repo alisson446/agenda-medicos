@@ -39,6 +39,13 @@ Route::middleware(['auth.doctor'])->group(function() {
 		Route::get("/list","SpecialtiesController@getSpecialties")->name("specialties.list");
 		Route::post("/add","SpecialtiesController@makeAdd")->name("specialties.make.add");
 		Route::delete("/delete/{id}","SpecialtiesController@delete")->name("specialties.delete");
+    });
+
+    Route::prefix('rooms')->group(function() {
+		Route::get("/","RoomsController@index")->name("rooms");
+		Route::get("/list","RoomsController@getrooms")->name("rooms.list");
+		Route::post("/add","RoomsController@makeAdd")->name("rooms.make.add");
+		Route::delete("/delete/{id}","RoomsController@delete")->name("rooms.delete");
 	});
 
     Route::prefix('patients')->group(function() {

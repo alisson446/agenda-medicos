@@ -134,6 +134,11 @@ return [
                     'icon'        => 'stethoscope',
                 ],
                 [
+                    'text'        => 'Salas',
+                    'url'         => 'rooms/',
+                    'icon'        => 'door-open',
+                ],
+                [
                     'text'        => 'Usuários',
                     'url'         => 'user/',
                     'icon'        => 'user'

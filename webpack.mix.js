@@ -14,6 +14,7 @@ let mix = require('laravel-mix');
 mix
     .js("resources/assets/js/app.js","public/js")
     .js('resources/assets/js/src/specialties.js', 'public/js')
+    .js('resources/assets/js/src/rooms.js', 'public/js')
     .js('resources/assets/js/src/schedules.js', 'public/js')
     .js('resources/assets/js/src/patients.js', 'public/js')
     .js('resources/assets/js/src/doctors.js', 'public/js')
