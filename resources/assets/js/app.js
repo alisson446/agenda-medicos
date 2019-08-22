@@ -19,6 +19,11 @@ Vue.use(VueTheMask);
 Vue.use(VeeValidate);
 Vue.use(VueMoney, {precision: 4})
 
+const moment = require('moment')
+require('moment/locale/pt-br')
+Vue.use(require('vue-moment'), { moment });
+
+
 Vue.component("datepicker", require('./components/Datepicker.vue'));
 Vue.component("modal-component", require('./components/ModalComponent.vue'));
 Vue.component('calendar-component', require('./components/CalendarComponent.vue'));

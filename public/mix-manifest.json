@@ -1,10 +1,9 @@
 {
     "/js/app.js": "/js/app.js",
-    "/sass/app.css": "/sass/app.css",
     "/js/user.js": "/js/user.js",
     "/js/specialties.js": "/js/specialties.js",
     "/js/schedules.js": "/js/schedules.js",
+    "/js/rooms.js": "/js/rooms.js",
     "/js/patients.js": "/js/patients.js",
-    "/js/doctors.js": "/js/doctors.js",
-    "/js/rooms.js": "/js/rooms.js"
+    "/js/doctors.js": "/js/doctors.js"
 }

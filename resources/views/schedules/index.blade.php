@@ -276,7 +276,7 @@
             <i class="fa fa-plus"></i> Paciente
         </a>
     </p>
-    
+
     <calendar-component></calendar-component>
 @stop
 

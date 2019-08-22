@@ -30,6 +30,7 @@ Route::middleware(['auth.doctor'])->group(function() {
     Route::prefix('schedules')->group(function() {
         Route::get("/","SchedulesController@index")->name("schedules");
         Route::post("/list","SchedulesController@getSchedules")->name("schedules.list");
+        Route::post("/waitingList","SchedulesController@getWaitingList")->name("schedules.waitingList");
         Route::post("/add","SchedulesController@makeAdd")->name("schedules.make.add");
         Route::post("/delete","SchedulesController@delete")->name("schedules.delete");
     });

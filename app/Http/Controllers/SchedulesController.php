@@ -39,6 +39,14 @@ class SchedulesController extends Controller
         return $schedules;
     }
 
+    public function getWaitingList(Request $request)
+    {
+        $doctor_id = $request->get("doctor_id");
+
+        $waitingList = $this->scheduleService->getWaitinglistByDoctorId($doctor_id);
+        return $waitingList;
+    }
+
     public function makeAdd(Request $request)
     {
         $id = $request->get("id");

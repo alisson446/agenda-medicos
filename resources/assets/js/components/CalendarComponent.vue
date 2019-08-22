@@ -160,7 +160,7 @@
       </div>
     </div>
 
-    <div class="row justify-content-center">
+    <div class="row justify-content-center" style="margin-right: 50px;">
       <div class="col-md-2" style="margin-top: 5em;">
         <div class="card">
           <div class="card-body">
@@ -178,12 +178,30 @@
           </ul>
         </div>
       </div>
-      <div class="col-md-8">
+
+      <div class="col-md-7">
         <Fullcalendar defaultView="dayGridMonth" ref="calendar"
             :header="{left: 'prev,next today',center: 'title',right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'}"
             @eventDrop="eventDrop" @dateClick="handleDateClick" @eventClick="editEvent" :droppable="droppable"
             all-day-text="Todos os dias" :editable="editable" :plugins="calendarPlugins" :weekends="true"
             :events.sync="events" locale="pt-br" :button-text="button" />
+      </div>
+
+      <div class="col-md-3" style="margin-top: 5em;">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title"><center>Lista de espera e encaixe</center></h5>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item" v-bind:key="index" v-for="(value,index) in waitingList">
+              <label>{{ value.patient_name }}</label>
+              <h6>
+                {{ moment(new Date(value.start)).format('DD MMMM, hh:mm:ss') }} - {{ moment(new Date(value.end)).format('hh:mm:ss') }}
+              </h6>
+              <p></p>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
@@ -194,6 +212,7 @@
   import dayGridPlugin from "@fullcalendar/daygrid";
   import timeGridPlugin from '@fullcalendar/timegrid'
   import interactionPlugin from "@fullcalendar/interaction";
+  import moment from 'moment';
 
   export default {
     components: {
@@ -220,6 +239,7 @@
         indexToUpdate: "",
         doctorFilter: [],
         listDoctors: [],
+        waitingList: [],
         btnSaveModal: "Salvar",
         titleModal: "<i class='fa fa-fw fa-calendar'></i> Cadastro de Consulta",
         listPatients: [],
@@ -342,12 +362,13 @@
               }
 
               Vue.set(self, "events", events);
+              self.refreshWaitinList();
+
               swal(
                 "Sucesso!",
                 (value.id === null) ? "Consulta cadastrada com sucesso!" : "Consulta editada com sucesso!",
                 'success'
               );
-
               setTimeout(() => {
                 self.resetForm();
               }, 100);
@@ -378,6 +399,7 @@
                 events.splice(eventIndex, 1);
 
                 Vue.set(self, "events", events);
+                self.refreshWaitinList();
 
                 swal("Consulta deletada com sucesso!", { icon: "success", });
                 jQuery("#modalForm").modal('hide');
@@ -415,7 +437,15 @@
             endD.getMinutes().length === 1 ? parseInt("0" + endD.getMinutes()) : endD.getMinutes()) + ":" + (endD
             .getSeconds().length === 1 ? parseInt("0" + endD.getSeconds()) : endD.getSeconds())
         };
-      }
+      },
+      refreshWaitinList() {
+        axios.post("/schedules/waitingList", {
+          "doctor_id": this.doctorFilter
+        }).then((res) => {
+          Vue.set(this, "waitingList", res.data);
+        });
+      },
+      moment
     },
     watch: {
       indexToUpdate() {
@@ -427,6 +457,8 @@
         }).then((res) => {
           Vue.set(this, "events", res.data);
         });
+
+        this.refreshWaitinList();
       },
       doctor_id(newValue, oldValue) {
         axios.post("/doctors/getSpecialtiesByDoctor", {

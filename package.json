@@ -34,6 +34,7 @@
         "v-money": "^0.8.1",
         "vee-validate": "^2.2.13",
         "vue-date-pick": "^1.2.1",
+        "vue-moment": "^4.0.0",
         "vue-multiselect": "^2.1.6",
         "vue-the-mask": "^0.11.1"
     }
