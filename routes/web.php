@@ -35,6 +35,13 @@ Route::middleware(['auth.doctor'])->group(function() {
         Route::post("/delete","SchedulesController@delete")->name("schedules.delete");
     });
 
+    Route::prefix('notes')->group(function() {
+		Route::get("/","NotesController@index")->name("notes");
+		Route::get("/list","NotesController@getnotes")->name("notes.list");
+		Route::post("/add","NotesController@makeAdd")->name("notes.make.add");
+		Route::delete("/delete/{id}","NotesController@delete")->name("notes.delete");
+    });
+
     Route::prefix('specialties')->group(function() {
 		Route::get("/","SpecialtiesController@index")->name("specialties");
 		Route::get("/list","SpecialtiesController@getSpecialties")->name("specialties.list");
@@ -47,7 +54,8 @@ Route::middleware(['auth.doctor'])->group(function() {
 		Route::get("/list","RoomsController@getrooms")->name("rooms.list");
 		Route::post("/add","RoomsController@makeAdd")->name("rooms.make.add");
 		Route::delete("/delete/{id}","RoomsController@delete")->name("rooms.delete");
-	});
+    });
+
 
     Route::prefix('patients')->group(function() {
         Route::get("/","PatientsController@index")->name("patients");

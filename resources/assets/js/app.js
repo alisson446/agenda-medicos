@@ -29,6 +29,7 @@ Vue.component("modal-component", require('./components/ModalComponent.vue'));
 Vue.component('calendar-component', require('./components/CalendarComponent.vue'));
 Vue.component("checkbox-component", require('./components/CheckboxComponent.vue'));
 Vue.component("acl-checkbox-component", require('./components/AclCheckboxComponent.vue'));
+Vue.component("notes-component", require('./components/NotesComponent.vue'));
 Vue.component('multiselect', Multiselect)
 
 $(window).on('load', function(){

@@ -271,17 +271,14 @@
         </form>
     </modal-component>
 
-    <p align="right" style="margin-right: 6em; margin-bottom: -3.3em;">
+    <p align="right" style="margin-right: 5.5em; margin-bottom: -3.3em;">
         <a href="javascript:void(0)" v-on:click="openAdd" class="btn btn-primary">
             <i class="fa fa-plus"></i> Paciente
         </a>
     </p>
 
     <calendar-component></calendar-component>
-
-    <button type="button" class="btn btn-warning btn-rounded" style="float: right">
-        Anotações
-    </button>
+    <notes-component></notes-component>
 @stop
 
 @section('js')

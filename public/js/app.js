@@ -41848,7 +41848,7 @@ var main = Object(__WEBPACK_IMPORTED_MODULE_0__fullcalendar_core__["S" /* create
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(147);
-module.exports = __webpack_require__(213);
+module.exports = __webpack_require__(216);
 
 
 /***/ }),
@@ -41896,6 +41896,7 @@ Vue.component("modal-component", __webpack_require__(190));
 Vue.component('calendar-component', __webpack_require__(193));
 Vue.component("checkbox-component", __webpack_require__(205));
 Vue.component("acl-checkbox-component", __webpack_require__(208));
+Vue.component("notes-component", __webpack_require__(213));
 Vue.component('multiselect', __WEBPACK_IMPORTED_MODULE_3_vue_multiselect___default.a);
 
 $(window).on('load', function () {
@@ -93483,6 +93484,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     methods: {
         save: function save() {
             this.$root.add(this.data);
+            this.$emit("submit", this.data);
         }
     }
 });
@@ -99743,6 +99745,945 @@ if (false) {
 
 /***/ }),
 /* 213 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(4)
+/* script */
+var __vue_script__ = __webpack_require__(214)
+/* template */
+var __vue_template__ = __webpack_require__(215)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/NotesComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-8ee4819a", Component.options)
+  } else {
+    hotAPI.reload("data-v-8ee4819a", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 214 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_moment__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_moment__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            titleModal: "<i class='fa fa-fw fa-stethoscope'></i> Cadastro de Anotações",
+            list: [],
+            form: {
+                "id": null,
+                "patient_id": null,
+                "doctor_id": null,
+                "note": null,
+                "reminderDate": null,
+                "reminderHour": null
+            },
+            listPatients: [],
+            listDoctors: []
+        };
+    },
+    mounted: function mounted() {
+        var _this = this;
+
+        //initial campaign data bid
+        axios.get("/notes/list").then(function (res) {
+            Vue.set(_this, "list", res.data);
+        });
+        axios.get("/doctors/list").then(function (res) {
+            Vue.set(_this, "listDoctors", res.data);
+        });
+        axios.get("/patients/list").then(function (res) {
+            Vue.set(_this, "listPatients", res.data);
+        });
+    },
+
+    methods: {
+        resetForm: function resetForm() {
+            this.form.id = null;
+            this.form.patient_id = null;
+            this.form.doctor_id = null;
+            this.form.note = null;
+            this.form.reminderDate = null;
+            this.form.reminderHour = null;
+        },
+        openAdd: function openAdd() {
+            this.resetForm();
+            this.$validator.reset();
+            this.titleModal = "<i class='fa fa-fw fa-stethoscope'></i> Cadastro de Anotação";
+            jQuery("#modalNotes").modal('show');
+        },
+        add: function add(value) {
+            var self = this;
+
+            self.$validator.validateAll().then(function (result) {
+                if (result) {
+                    axios.post("/notes/add", value).then(function (res) {
+                        jQuery("#modalNotes").modal('hide');
+                        self.list = res.data;
+                        swal("Sucesso!", value.id === null ? "Anotação cadastrada com sucesso!" : "Anotação editada com sucesso!", 'success');
+                        setTimeout(function () {
+                            self.resetForm();
+                        }, 100);
+                    });
+                    return true;
+                }
+            });
+        },
+        edit: function edit(index) {
+            var _this2 = this;
+
+            axios.get("/patients/list").then(function (res) {
+                Vue.set(_this2, "listPatients", res.data);
+            });
+            axios.post("/doctors/getSpecialtiesByDoctor", {
+                "id": this.form.doctor_id
+            }).then(function (res) {
+                Vue.set(_this2, "listSpecialties", res.data);
+            });
+
+            this.titleModal = "<i class='fa fa-fw fa-stethoscope'></i> Edição de Anotação";
+            var data = this.list[index];
+            data = this.formatDates(data);
+            this.form = Object.assign({}, data);
+            jQuery("#modalNotes").modal("show");
+        },
+        formatDates: function formatDates(data) {
+            data.reminderDate = __WEBPACK_IMPORTED_MODULE_0_moment___default()(data.reminder).format('DD/MM/YYYY');
+            data.reminderHour = __WEBPACK_IMPORTED_MODULE_0_moment___default()(data.reminder).format('hh:mm:ss');
+            return data;
+        },
+        del: function del(index) {
+            var self = this;
+
+            swal({
+                title: "Você tem certeza?",
+                text: "Realmente deseja excluir esta Anotação?",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true
+            }).then(function (willDelete) {
+                if (willDelete) {
+                    swal("Anotação deletada com sucesso!", {
+                        icon: "success"
+                    });
+                    axios.delete("/notes/delete/" + self.list[index].id).then(function () {
+                        self.list.splice(index, 1);
+                    });
+                }
+            });
+        },
+
+        moment: __WEBPACK_IMPORTED_MODULE_0_moment___default.a
+    }
+});
+
+/***/ }),
+/* 215 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container" }, [
+    _vm._m(0),
+    _vm._v(" "),
+    _c("div", { staticClass: "row justify-content-center" }, [
+      _c(
+        "div",
+        { staticClass: "col-md-11" },
+        [
+          _c("p", { attrs: { align: "right" } }, [
+            _c(
+              "a",
+              {
+                staticClass: "btn btn-primary",
+                attrs: { href: "javascript:void(0)" },
+                on: { click: _vm.openAdd }
+              },
+              [_c("i", { staticClass: "fa fa-plus" })]
+            )
+          ]),
+          _vm._v(" "),
+          _c("table", { staticClass: "table table-hover table-striped" }, [
+            _vm._m(1),
+            _vm._v(" "),
+            _c(
+              "tbody",
+              _vm._l(_vm.list, function(value, index) {
+                return _c("tr", { key: index }, [
+                  _c("td", [
+                    _vm._v(
+                      _vm._s(_vm.moment(value.updated_at).format("DD/MM/YYYY"))
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(value.doctor_name))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(value.patient_name))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(value.note))]),
+                  _vm._v(" "),
+                  _c("td", [
+                    _vm._v(
+                      _vm._s(
+                        _vm.moment(value.reminder).format("DD/MM/YYYY hh:mm:ss")
+                      )
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("td", [
+                    _c(
+                      "a",
+                      {
+                        staticClass: "btn btn-sm btn-primary",
+                        attrs: { href: "javascript:void(0)" },
+                        on: {
+                          click: function($event) {
+                            return _vm.edit(index)
+                          }
+                        }
+                      },
+                      [_c("i", { staticClass: "fa fa-edit" })]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "a",
+                      {
+                        staticClass: "btn btn-sm btn-danger",
+                        attrs: { href: "javascript:void(0)" },
+                        on: {
+                          click: function($event) {
+                            return _vm.del(index)
+                          }
+                        }
+                      },
+                      [_c("i", { staticClass: "fa fa-trash" })]
+                    )
+                  ])
+                ])
+              }),
+              0
+            )
+          ]),
+          _vm._v(" "),
+          _c(
+            "modal-component",
+            {
+              attrs: {
+                id: "modalNotes",
+                title: _vm.titleModal,
+                data: _vm.form
+              },
+              on: { submit: _vm.add }
+            },
+            [
+              _c(
+                "form",
+                {
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      return _vm.add($event)
+                    }
+                  }
+                },
+                [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.form.id,
+                        expression: "form.id"
+                      }
+                    ],
+                    attrs: { type: "hidden", value: "" },
+                    domProps: { value: _vm.form.id },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.form, "id", $event.target.value)
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col-md-12" }, [
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", [_vm._v("Médico:")]),
+                        _vm._v(" "),
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "validate",
+                                rawName: "v-validate",
+                                value: "required",
+                                expression: "'required'"
+                              },
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.doctor_id,
+                                expression: "form.doctor_id"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            staticStyle: { width: "100%" },
+                            style: _vm.errors.has("formDoctor")
+                              ? "border: 1px solid red !important;"
+                              : "",
+                            attrs: { name: "formDoctor" },
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  _vm.form,
+                                  "doctor_id",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              }
+                            }
+                          },
+                          _vm._l(_vm.listDoctors, function(value, index) {
+                            return _c(
+                              "option",
+                              { key: index, domProps: { value: value.id } },
+                              [
+                                _vm._v(
+                                  "\n                                        " +
+                                    _vm._s(value.name) +
+                                    "\n                                    "
+                                )
+                              ]
+                            )
+                          }),
+                          0
+                        ),
+                        _vm._v(" "),
+                        _c("i", {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.errors.has("formDoctor"),
+                              expression: "errors.has('formDoctor')"
+                            }
+                          ],
+                          staticClass: "fa fa-warning",
+                          style: _vm.errors.has("formDoctor")
+                            ? "color: red !important"
+                            : ""
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value: _vm.errors.has("formDoctor"),
+                                expression: "errors.has('formDoctor')"
+                              }
+                            ],
+                            style: _vm.errors.has("formDoctor")
+                              ? "color: red !important"
+                              : ""
+                          },
+                          [
+                            _vm._v(
+                              "\n                                    Médico é obrigatório!\n                                "
+                            )
+                          ]
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-12" }, [
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", [_vm._v("Paciente:")]),
+                        _vm._v(" "),
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "validate",
+                                rawName: "v-validate",
+                                value: "required",
+                                expression: "'required'"
+                              },
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.patient_id,
+                                expression: "form.patient_id"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            staticStyle: { width: "100%" },
+                            style: _vm.errors.has("formPatient")
+                              ? "border: 1px solid red !important;"
+                              : "",
+                            attrs: { name: "formPatient" },
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  _vm.form,
+                                  "patient_id",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              }
+                            }
+                          },
+                          _vm._l(_vm.listPatients, function(value, index) {
+                            return _c(
+                              "option",
+                              { key: index, domProps: { value: value.id } },
+                              [
+                                _vm._v(
+                                  "\n                                        " +
+                                    _vm._s(value.name) +
+                                    "\n                                    "
+                                )
+                              ]
+                            )
+                          }),
+                          0
+                        ),
+                        _vm._v(" "),
+                        _c("i", {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.errors.has("formPatient"),
+                              expression: "errors.has('formPatient')"
+                            }
+                          ],
+                          staticClass: "fa fa-warning",
+                          style: _vm.errors.has("formPatient")
+                            ? "color: red !important"
+                            : ""
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value: _vm.errors.has("formPatient"),
+                                expression: "errors.has('formPatient')"
+                              }
+                            ],
+                            style: _vm.errors.has("formPatient")
+                              ? "color: red !important"
+                              : ""
+                          },
+                          [_vm._v("Paciente é obrigatório!")]
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-12" }, [
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", [_vm._v("Anotação:")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "validate",
+                              rawName: "v-validate",
+                              value: "required",
+                              expression: "'required'"
+                            },
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.note,
+                              expression: "form.note"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          style: _vm.errors.has("formNote")
+                            ? "border: 1px solid red !important;"
+                            : "",
+                          attrs: {
+                            name: "formNote",
+                            type: "text",
+                            autocomplete: "off"
+                          },
+                          domProps: { value: _vm.form.note },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.form, "note", $event.target.value)
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("i", {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.errors.has("formNote"),
+                              expression: "errors.has('formNote')"
+                            }
+                          ],
+                          staticClass: "fa fa-warning",
+                          style: _vm.errors.has("formNote")
+                            ? "color: red !important"
+                            : ""
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value: _vm.errors.has("formNote"),
+                                expression: "errors.has('formNote')"
+                              }
+                            ],
+                            style: _vm.errors.has("formNote")
+                              ? "color: red !important"
+                              : ""
+                          },
+                          [_vm._v("Anotação é obrigatório!")]
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-3" }, [
+                      _c("label", [_vm._v("Data Lembrete:")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "validate",
+                            rawName: "v-validate",
+                            value: "required",
+                            expression: "'required'"
+                          },
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.reminderDate,
+                            expression: "form.reminderDate"
+                          },
+                          {
+                            name: "mask",
+                            rawName: "v-mask",
+                            value: "##/##/####",
+                            expression: "'##/##/####'"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        style: _vm.errors.has("formReminderDate")
+                          ? "border: 1px solid red !important;"
+                          : "",
+                        attrs: {
+                          name: "formReminderDate",
+                          type: "text",
+                          autocomplete: "off",
+                          placeholder: "dd/mm/yyyy"
+                        },
+                        domProps: { value: _vm.form.reminderDate },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.form,
+                              "reminderDate",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("i", {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.errors.has("formReminderDate"),
+                            expression: "errors.has('formReminderDate')"
+                          }
+                        ],
+                        staticClass: "fa fa-warning",
+                        style: _vm.errors.has("formReminderDate")
+                          ? "color: red !important"
+                          : ""
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "span",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.errors.has("formReminderDate"),
+                              expression: "errors.has('formReminderDate')"
+                            }
+                          ],
+                          style: _vm.errors.has("formReminderDate")
+                            ? "color: red !important"
+                            : ""
+                        },
+                        [
+                          _vm._v(
+                            "\n                                Data é obrigatório!\n                            "
+                          )
+                        ]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-3" }, [
+                      _c("label", [_vm._v("Hora Lembrete:")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "validate",
+                            rawName: "v-validate",
+                            value: "required",
+                            expression: "'required'"
+                          },
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.reminderHour,
+                            expression: "form.reminderHour"
+                          },
+                          {
+                            name: "mask",
+                            rawName: "v-mask",
+                            value: "##:##:##",
+                            expression: "'##:##:##'"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        style: _vm.errors.has("formReminderHour")
+                          ? "border: 1px solid red !important;"
+                          : "",
+                        attrs: {
+                          name: "formReminderHour",
+                          type: "text",
+                          autocomplete: "off",
+                          placeholder: "hh:mm:ss"
+                        },
+                        domProps: { value: _vm.form.reminderHour },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.form,
+                              "reminderHour",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("i", {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.errors.has("formReminderHour"),
+                            expression: "errors.has('formReminderHour')"
+                          }
+                        ],
+                        staticClass: "fa fa-warning",
+                        style: _vm.errors.has("formReminderHour")
+                          ? "color: red !important"
+                          : ""
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "span",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.errors.has("formReminderHour"),
+                              expression: "errors.has('formReminderHour')"
+                            }
+                          ],
+                          style: _vm.errors.has("formReminderHour")
+                            ? "color: red !important"
+                            : ""
+                        },
+                        [
+                          _vm._v(
+                            "\n                                Hora é obrigatória!\n                            "
+                          )
+                        ]
+                      )
+                    ])
+                  ])
+                ]
+              )
+            ]
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-1" })
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row justify-content-center" }, [
+      _c("div", { staticClass: "col-md-11" }, [
+        _c("nav", { staticClass: "navbar navbar-dark bg-primary" }, [
+          _c("span", { staticClass: "navbar-brand" }, [
+            _vm._v("Mural de Anotações")
+          ])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Data")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Médico")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Paciente")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Descrição")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Lembrete")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "dc_actions" }, [_vm._v("Ações")])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-8ee4819a", module.exports)
+  }
+}
+
+/***/ }),
+/* 216 */
 /***/ (function(module, exports) {
 
 throw new Error("Module build failed: ModuleBuildError: Module build failed: Error: Missing binding /home/alissonoliveira/projetos/agenda-medicos/node_modules/node-sass/vendor/linux-x64-64/binding.node\nNode Sass could not find a binding for your current environment: Linux 64-bit with Node.js 10.x\n\nFound bindings for the following environments:\n  - Linux 64-bit with Node.js 8.x\n\nThis usually happens because your environment has changed since running `npm install`.\nRun `npm rebuild node-sass` to download the binding for your current environment.\n    at module.exports (/home/alissonoliveira/projetos/agenda-medicos/node_modules/node-sass/lib/binding.js:15:13)\n    at Object.<anonymous> (/home/alissonoliveira/projetos/agenda-medicos/node_modules/node-sass/lib/index.js:14:35)\n    at Module._compile (internal/modules/cjs/loader.js:776:30)\n    at Object.Module._extensions..js (internal/modules/cjs/loader.js:787:10)\n    at Module.load (internal/modules/cjs/loader.js:653:32)\n    at tryModuleLoad (internal/modules/cjs/loader.js:593:12)\n    at Function.Module._load (internal/modules/cjs/loader.js:585:3)\n    at Module.require (internal/modules/cjs/loader.js:690:17)\n    at require (internal/modules/cjs/helpers.js:25:18)\n    at Object.<anonymous> (/home/alissonoliveira/projetos/agenda-medicos/node_modules/sass-loader/lib/loader.js:3:14)\n    at Module._compile (internal/modules/cjs/loader.js:776:30)\n    at Object.Module._extensions..js (internal/modules/cjs/loader.js:787:10)\n    at Module.load (internal/modules/cjs/loader.js:653:32)\n    at tryModuleLoad (internal/modules/cjs/loader.js:593:12)\n    at Function.Module._load (internal/modules/cjs/loader.js:585:3)\n    at Module.require (internal/modules/cjs/loader.js:690:17)\n    at require (internal/modules/cjs/helpers.js:25:18)\n    at loadLoader (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/loadLoader.js:18:17)\n    at iteratePitchingLoaders (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:169:2)\n    at iteratePitchingLoaders (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:165:10)\n    at /home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:176:18\n    at loadLoader (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/loadLoader.js:47:3)\n    at iteratePitchingLoaders (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:169:2)\n    at iteratePitchingLoaders (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:165:10)\n    at /home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:176:18\n    at loadLoader (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/loadLoader.js:47:3)\n    at iteratePitchingLoaders (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:169:2)\n    at iteratePitchingLoaders (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:165:10)\n    at /home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:176:18\n    at loadLoader (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/loadLoader.js:47:3)\n    at runLoaders (/home/alissonoliveira/projetos/agenda-medicos/node_modules/webpack/lib/NormalModule.js:195:19)\n    at /home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:367:11\n    at /home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:172:11\n    at loadLoader (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/loadLoader.js:32:11)\n    at iteratePitchingLoaders (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:169:2)\n    at iteratePitchingLoaders (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:165:10)\n    at /home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:176:18\n    at loadLoader (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/loadLoader.js:47:3)\n    at iteratePitchingLoaders (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:169:2)\n    at iteratePitchingLoaders (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:165:10)\n    at /home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:176:18\n    at loadLoader (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/loadLoader.js:47:3)\n    at iteratePitchingLoaders (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:169:2)\n    at iteratePitchingLoaders (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:165:10)\n    at /home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:176:18\n    at loadLoader (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/loadLoader.js:47:3)\n    at iteratePitchingLoaders (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:169:2)\n    at runLoaders (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:365:2)\n    at NormalModule.doBuild (/home/alissonoliveira/projetos/agenda-medicos/node_modules/webpack/lib/NormalModule.js:182:3)\n    at NormalModule.build (/home/alissonoliveira/projetos/agenda-medicos/node_modules/webpack/lib/NormalModule.js:275:15)\n    at Compilation.buildModule (/home/alissonoliveira/projetos/agenda-medicos/node_modules/webpack/lib/Compilation.js:157:10)\n    at moduleFactory.create (/home/alissonoliveira/projetos/agenda-medicos/node_modules/webpack/lib/Compilation.js:460:10)\n    at factory (/home/alissonoliveira/projetos/agenda-medicos/node_modules/webpack/lib/NormalModuleFactory.js:243:5)\n    at applyPluginsAsyncWaterfall (/home/alissonoliveira/projetos/agenda-medicos/node_modules/webpack/lib/NormalModuleFactory.js:94:13)\n    at /home/alissonoliveira/projetos/agenda-medicos/node_modules/tapable/lib/Tapable.js:268:11\n    at NormalModuleFactory.params.normalModuleFactory.plugin (/home/alissonoliveira/projetos/agenda-medicos/node_modules/webpack/lib/CompatibilityPlugin.js:52:5)\n    at NormalModuleFactory.applyPluginsAsyncWaterfall (/home/alissonoliveira/projetos/agenda-medicos/node_modules/tapable/lib/Tapable.js:272:13)\n    at resolver (/home/alissonoliveira/projetos/agenda-medicos/node_modules/webpack/lib/NormalModuleFactory.js:69:10)\n    at process.nextTick (/home/alissonoliveira/projetos/agenda-medicos/node_modules/webpack/lib/NormalModuleFactory.js:196:7)\n    at process._tickCallback (internal/process/next_tick.js:61:11)");

@@ -3,11 +3,14 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
-class Rooms extends Eloquent
+class Notes extends Eloquent
 {
     protected $connection = 'mysql';
     protected $fillable = [
         'id',
-        'name'
+        'doctor_id',
+        'patient_id',
+        'note',
+        'reminder'
     ];
 }

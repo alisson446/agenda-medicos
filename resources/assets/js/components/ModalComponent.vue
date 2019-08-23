@@ -42,6 +42,7 @@
         methods: {
             save() {
                 this.$root.add(this.data);
+                this.$emit("submit", this.data);
             }
         }
     }
