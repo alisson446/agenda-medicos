@@ -198,6 +198,7 @@
               <h6>
                 {{ moment(new Date(value.start)).format('DD MMMM, hh:mm:ss') }} - {{ moment(new Date(value.end)).format('hh:mm:ss') }}
               </h6>
+              <h5>{{ value.specialtie_name }}</h5>
               <p></p>
             </li>
           </ul>

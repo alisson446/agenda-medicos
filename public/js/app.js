@@ -93955,6 +93955,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 //
 //
 //
+//
 
 
 
@@ -99352,6 +99353,8 @@ var render = function() {
                             "\n            "
                         )
                       ]),
+                      _vm._v(" "),
+                      _c("h5", [_vm._v(_vm._s(value.specialtie_name))]),
                       _vm._v(" "),
                       _c("p")
                     ]

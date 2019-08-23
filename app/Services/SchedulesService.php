@@ -39,6 +39,7 @@ class SchedulesService extends Service
                         ->join('patients', 'patients.id', '=', 'schedules.patient_id')
                         ->join('specialties', 'specialties.id', '=', 'schedules.specialty_id')
                         ->whereIn('doctor_id', $doctor_ids)
+                        ->orderBy('initial_date')
                         ->get();
 
         return $schedules;
