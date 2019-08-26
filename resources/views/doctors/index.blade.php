@@ -145,7 +145,7 @@
                     <label>Data Nasc.:</label>
                     <datepicker :style="errors.has('formBirthdayDate') ? 'border: 1px solid red !important;' : ''"
                                 name="formBirthdayDate" v-validate="'required'"
-                                placeholder="Data Nasc" :value="form.birthday_date" @set="setData"></datepicker>
+                                placeholder="Data Nasc" :value="form.birthday_date" @set="setData" v-mask="'##/##/####'"></datepicker>
                     <i v-show="errors.has('formBirthdayDate')" class="fa fa-warning"
                        :style="errors.has('formBirthdayDate') ? 'color: red !important' : ''"></i>
                     <span v-show="errors.has('formBirthdayDate')"
@@ -197,7 +197,7 @@
                                         <datepicker
                                                 :style="errors.has('issuanceDate') ? 'border: 1px solid red !important;' : ''"
                                                 v-validate="'required'" name="issuanceDate" placeholder="Data emissão"
-                                                :value="form.issuance_date"
+                                                :value="form.issuance_date" v-mask="'##/##/####'"
                                                 @set="setDataIssuanceDate"></datepicker>
                                         <i v-show="errors.has('issuanceDate')" class="fa fa-warning"
                                            :style="errors.has('issuanceDate') ? 'color: red !important' : ''"></i>
