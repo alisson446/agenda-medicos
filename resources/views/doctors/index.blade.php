@@ -143,9 +143,12 @@
                 </div>
                 <div class="col-md-3">
                     <label>Data Nasc.:</label>
-                    <datepicker :style="errors.has('formBirthdayDate') ? 'border: 1px solid red !important;' : ''"
+                    <input :style="errors.has('formBirthdayDate') ? 'border: 1px solid red !important;' : ''"
+                        v-validate="'required'" name="formBirthdayDate" type="text" autocomplete="off"
+                        v-model="form.birthday_date" placeholder="Data Nasc" class="form-control" v-mask="'##/##/####'" />
+                    {{-- <datepicker :style="errors.has('formBirthdayDate') ? 'border: 1px solid red !important;' : ''"
                                 name="formBirthdayDate" v-validate="'required'"
-                                placeholder="Data Nasc" :value="form.birthday_date" @set="setData" v-mask="'##/##/####'"></datepicker>
+                                placeholder="Data Nasc" :value="form.birthday_date" @set="setData" v-mask="'##/##/####'"></datepicker> --}}
                     <i v-show="errors.has('formBirthdayDate')" class="fa fa-warning"
                        :style="errors.has('formBirthdayDate') ? 'color: red !important' : ''"></i>
                     <span v-show="errors.has('formBirthdayDate')"
@@ -194,11 +197,14 @@
                                     </div>
                                     <div class="col-md-2">
                                         <label>Data emissão:</label>
-                                        <datepicker
+                                        <input :style="errors.has('issuanceDate') ? 'border: 1px solid red !important;' : ''"
+                                            v-validate="'required'" name="issuanceDate" type="text" autocomplete="off"
+                                            v-model="form.issuance_date" placeholder="Data emissão" class="form-control" v-mask="'##/##/####'" />
+                                        {{-- <datepicker
                                                 :style="errors.has('issuanceDate') ? 'border: 1px solid red !important;' : ''"
                                                 v-validate="'required'" name="issuanceDate" placeholder="Data emissão"
                                                 :value="form.issuance_date" v-mask="'##/##/####'"
-                                                @set="setDataIssuanceDate"></datepicker>
+                                                @set="setDataIssuanceDate"></datepicker> --}}
                                         <i v-show="errors.has('issuanceDate')" class="fa fa-warning"
                                            :style="errors.has('issuanceDate') ? 'color: red !important' : ''"></i>
                                         <span v-show="errors.has('issuanceDate')"
