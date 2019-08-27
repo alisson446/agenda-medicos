@@ -79,7 +79,7 @@
                     <input :style="errors.has('formPhoneNumber') ? 'border: 1px solid red !important;' : ''"
                            type="text" autocomplete="off" v-model="form.phone_number"
                            class="form-control" name="formPhoneNumber"
-                           v-mask="'(##) ####-####'"/>
+                           v-mask="'(##) #####-####'"/>
                     <i v-show="errors.has('formPhoneNumber')" class="fa fa-warning"
                        :style="errors.has('formPhoneNumber') ? 'color: red !important' : ''"></i>
                     <span v-show="errors.has('formPhoneNumber')"

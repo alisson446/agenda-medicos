@@ -75,7 +75,7 @@
                 </div>
                 <div class="col-md-3">
                     <label>Data Nasc.:</label>
-                    <input name="issuanceDate" type="text" autocomplete="off"
+                    <input name="birthday_date" type="text" autocomplete="off"
                         v-model="form.birthday_date" placeholder="Data Nasc" class="form-control" v-mask="'##/##/####'" />
                     <!-- <datepicker name="formBirthdayDate" placeholder="Data Nasc" :value="form.birthday_date"
                                 @set="setData"></datepicker> -->
@@ -84,7 +84,7 @@
                     <label>Telefone:</label>
                     <input type="text" autocomplete="off" v-model="form.phone_number"
                            class="form-control"
-                           v-mask="'(##) ####-####'"/>
+                           v-mask="'(##) #####-####'"/>
                 </div>
                 <div class="col-md-3">
                     <label>Celular:</label>
@@ -130,8 +130,10 @@
                                     </div>
                                     <div class="col-md-4">
                                         <label>Valid. Carteira:</label>
-                                        <datepicker placeholder="Valid. Carteira" :value="form.plan_card_valid"
-                                                @set="setDataPlanCardValid"></datepicker>
+                                        <input name="plan_card_valid" type="text" autocomplete="off"
+                                            v-model="form.plan_card_valid" placeholder="Valid. Carteira" class="form-control" v-mask="'##/##/####'" />
+                                        {{-- <datepicker placeholder="Valid. Carteira" :value="form.plan_card_valid"
+                                                @set="setDataPlanCardValid"></datepicker> --}}
                                     </div>
                                 </div>
                             </div>
@@ -267,9 +269,11 @@
                                     </div>
                                     <div class="col-md-2">
                                         <label>Data emissão:</label>
-                                        <datepicker placeholder="Data emissão"
+                                        <input name="issuanceDate" type="text" autocomplete="off"
+                                            v-model="form.issuance_date" placeholder="Data Nasc" class="form-control" v-mask="'##/##/####'" />
+                                        {{-- <datepicker placeholder="Data emissão"
                                                 :value="form.issuance_date"
-                                                @set="setDataIssuanceDate"></datepicker>
+                                                @set="setDataIssuanceDate"></datepicker> --}}
                                     </div>
                                     <div class="col-md-2">
                                         <label>Órgão emissor:</label>
