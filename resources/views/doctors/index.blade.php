@@ -162,13 +162,13 @@
                     <div class="nav-tabs-custom">
                         <ul class="nav nav-tabs">
                             <li :class="navActiveGeneral"><a href="#general" data-toggle="tab"
-                                                             @click="changeNavActive('general')">Dados cadastrais</a>
-                            </li>
+                                @click="changeNavActive('general')">Dados cadastrais</a></li>
                             <li :class="navActiveAddress"><a href="#address" data-toggle="tab"
-                                                             @click="changeNavActive('address')">Endereço</a></li>
+                                @click="changeNavActive('address')">Endereço</a></li>
                             <li :class="navActiveProfission"><a href="#profission" data-toggle="tab"
-                                                                @click="changeNavActive('profission')">Conselho
-                                    Profissional</a></li>
+                                @click="changeNavActive('profission')">Conselho Profissional</a></li>
+                            <li :class="navActiveJuridical"><a href="#juridical" data-toggle="tab"
+                                @click="changeNavActive('juridical')">Jurídica</a></li>
                         </ul>
                         <div class="tab-content">
                             <div class="tab-pane" :class="navActiveGeneral" id="general">
@@ -384,6 +384,17 @@
                                            :style="errors.has('professional_advice_type') ? 'color: red !important' : ''"></i>
                                         <span v-show="errors.has('professional_advice_type')"
                                               :style="errors.has('professional_advice_type') ? 'color: red !important' : ''">Tipo do conselho é obrigatório!</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" :class="navActiveJuridical" id="juridical">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label>CNPJ:</label>
+                                        <input :style="errors.has('cnpj') ? 'border: 1px solid red !important;' : ''"
+                                                name="cnpj" type="text" autocomplete="off"
+                                                v-model="form.cnpj"
+                                                class="form-control" v-mask="'##.###.###/####-##'"/>
                                     </div>
                                 </div>
                             </div>

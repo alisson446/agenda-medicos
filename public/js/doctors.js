@@ -83,6 +83,7 @@ var app = new Vue({
         "navActiveGeneral": 'active',
         "navActiveAddress": '',
         "navActiveProfission": '',
+        "navActiveJuridical": '',
         "list": [],
         "listProfessionalAdvices": [],
         "listCountries": [],
@@ -113,7 +114,8 @@ var app = new Vue({
             "professional_advice_id": null,
             "professional_advice_state_id": null,
             "professional_advice_number": null,
-            "professional_advice_type": null
+            "professional_advice_type": null,
+            "cnpj": null
         }
     },
     mounted: function mounted() {
@@ -174,16 +176,25 @@ var app = new Vue({
                     Vue.set(this, "navActiveGeneral", 'active');
                     Vue.set(this, "navActiveAddress", '');
                     Vue.set(this, "navActiveProfission", '');
+                    Vue.set(this, "navActiveJuridical", '');
                     break;
                 case 'address':
                     Vue.set(this, "navActiveGeneral", '');
                     Vue.set(this, "navActiveAddress", 'active');
                     Vue.set(this, "navActiveProfission", '');
+                    Vue.set(this, "navActiveJuridical", '');
                     break;
                 case 'profission':
                     Vue.set(this, "navActiveGeneral", '');
                     Vue.set(this, "navActiveAddress", '');
                     Vue.set(this, "navActiveProfission", 'active');
+                    Vue.set(this, "navActiveJuridical", '');
+                    break;
+                case 'juridical':
+                    Vue.set(this, "navActiveGeneral", '');
+                    Vue.set(this, "navActiveAddress", '');
+                    Vue.set(this, "navActiveProfission", '');
+                    Vue.set(this, "navActiveJuridical", 'active');
                     break;
             }
         },
@@ -218,6 +229,7 @@ var app = new Vue({
             this.form.professional_advice_state_id = null;
             this.form.professional_advice_number = null;
             this.form.professional_advice_type = null;
+            this.form.cnpj = null;
         },
         searchByCep: function searchByCep() {
             var cep = this.form.address_cep;

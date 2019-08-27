@@ -29,6 +29,7 @@ class Doctors extends Eloquent
         'professional_advice_id',
         'professional_advice_state_id',
         'professional_advice_number',
-        'professional_advice_type'
+        'professional_advice_type',
+        'cnpj'
     ];
 }
