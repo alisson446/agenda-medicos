@@ -33,7 +33,7 @@
                         <td>{{ value.doctor_name }}</td>
                         <td>{{ value.patient_name }}</td>
                         <td>{{ value.note }}</td>
-                        <td>{{ moment(value.reminder).format('DD/MM/YYYY hh:mm:ss') }}</td>
+                        <td>{{ moment(value.reminder).format('DD/MM/YYYY HH:mm:ss') }}</td>
                         <td>
                             <a href="javascript:void(0)" class="btn btn-sm btn-primary" v-on:click="edit(index)"><i
                                         class="fa fa-edit"></i></a>
@@ -52,7 +52,7 @@
                                 <div class="form-group">
                                     <label>Médico:</label>
                                     <select :style="errors.has('formDoctor') ? 'border: 1px solid red !important;' : ''"
-                                        v-validate="'required'" name="formDoctor" class="form-control" style="width: 100%;"
+                                        name="formDoctor" class="form-control" style="width: 100%;"
                                         v-model="form.doctor_id">
                                         <option v-bind:key="index" v-for="(value,index) in listDoctors" :value="value.id">
                                             {{ value.name }}
@@ -71,7 +71,7 @@
                                 <div class="form-group">
                                     <label>Paciente:</label>
                                     <select :style="errors.has('formPatient') ? 'border: 1px solid red !important;' : ''"
-                                        v-validate="'required'" name="formPatient" class="form-control" style="width: 100%;"
+                                        name="formPatient" class="form-control" style="width: 100%;"
                                         v-model="form.patient_id">
                                         <option v-bind:key="index" v-for="(value,index) in listPatients" :value="value.id">
                                             {{ value.name }}
@@ -88,7 +88,7 @@
                                 <div class="form-group">
                                     <label>Anotação:</label>
                                     <input :style="errors.has('formNote') ? 'border: 1px solid red !important;' : ''"
-                                        v-validate="'required'" name="formNote" type="text"
+                                        name="formNote" type="text"
                                         autocomplete="off" v-model="form.note" class="form-control"/>
                                     <i v-show="errors.has('formNote')" class="fa fa-warning"
                                         :style="errors.has('formNote') ? 'color: red !important' : ''"></i>
@@ -99,7 +99,7 @@
                             <div class="col-md-3">
                                 <label>Data Lembrete:</label>
                                 <input :style="errors.has('formReminderDate') ? 'border: 1px solid red !important;' : ''"
-                                    v-validate="'required'" name="formReminderDate" type="text" autocomplete="off"
+                                    name="formReminderDate" type="text" autocomplete="off"
                                     v-model="form.reminderDate" placeholder="dd/mm/yyyy" class="form-control" v-mask="'##/##/####'" />
                                 <i v-show="errors.has('formReminderDate')" class="fa fa-warning"
                                     :style="errors.has('formReminderDate') ? 'color: red !important' : ''"></i>
@@ -110,8 +110,8 @@
                             <div class="col-md-3">
                                 <label>Hora Lembrete:</label>
                                 <input :style="errors.has('formReminderHour') ? 'border: 1px solid red !important;' : ''"
-                                    v-validate="'required'" name="formReminderHour" type="text" autocomplete="off"
-                                    v-model="form.reminderHour" placeholder="hh:mm:ss" class="form-control" v-mask="'##:##:##'" />
+                                    name="formReminderHour" type="text" autocomplete="off"
+                                    v-model="form.reminderHour" placeholder="HH:mm:ss" class="form-control" v-mask="'##:##:##'" />
                                 <i v-show="errors.has('formReminderHour')" class="fa fa-warning"
                                     :style="errors.has('formReminderHour') ? 'color: red !important' : ''"></i>
                                 <span v-show="errors.has('formReminderHour')"
@@ -210,7 +210,7 @@
             },
             formatDates(data) {
                 data.reminderDate = moment(data.reminder).format('DD/MM/YYYY');
-                data.reminderHour = moment(data.reminder).format('hh:mm:ss');
+                data.reminderHour = moment(data.reminder).format('HH:mm:ss');
                 return data;
             },
             del(index) {

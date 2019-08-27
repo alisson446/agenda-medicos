@@ -26,7 +26,7 @@
                   <div class="form-group">
                     <label>Paciente:</label>
                     <select :style="errors.has('formPatient') ? 'border: 1px solid red !important;' : ''"
-                      v-validate="'required'" name="formPatient" class="form-control" style="width: 100%;"
+                      name="formPatient" class="form-control" style="width: 100%;"
                       v-model="form.patient_id">
                       <option v-bind:key="index" v-for="(value,index) in listPatients" :value="value.id">
                         {{ value.name }}
@@ -42,7 +42,7 @@
                   <div class="form-group">
                     <label>Médico:</label>
                     <select :style="errors.has('formDoctor') ? 'border: 1px solid red !important;' : ''"
-                      v-validate="'required'" name="formDoctor" class="form-control" style="width: 100%;"
+                      name="formDoctor" class="form-control" style="width: 100%;"
                       v-model="form.doctor_id">
                       <option v-bind:key="index" v-for="(value,index) in listDoctors" :value="value.id">
                         {{ value.name }}
@@ -60,7 +60,7 @@
                   <div class="form-group">
                     <label>Especialidade:</label>
                     <select :style="errors.has('formSpecialty') ? 'border: 1px solid red !important;' : ''"
-                      v-validate="'required'" name="formSpecialty" class="form-control" style="width: 100%;"
+                      name="formSpecialty" class="form-control" style="width: 100%;"
                       v-model="form.specialty_id">
                       <option v-bind:key="index" v-for="(value,index) in listSpecialties" :value="value.id">
                         {{ value.name }}
@@ -77,7 +77,7 @@
                 <div class="col-md-7">
                   <label>Data início:</label>
                   <input :style="errors.has('formInitialDate') ? 'border: 1px solid red !important;' : ''"
-                    v-validate="'required'" name="formInitialDate" type="text" autocomplete="off"
+                    name="formInitialDate" type="text" autocomplete="off"
                     v-model="form.initial_date" placeholder="dd/mm/yyyy" class="form-control" v-mask="'##/##/####'" />
                   <i v-show="errors.has('formInitialDate')" class="fa fa-warning"
                     :style="errors.has('formInitialDate') ? 'color: red !important' : ''"></i>
@@ -88,8 +88,8 @@
                 <div class="col-md-5">
                   <label>Hora início:</label>
                   <input :style="errors.has('formInitialHour') ? 'border: 1px solid red !important;' : ''"
-                    v-validate="'required'" name="formInitialHour" type="text" autocomplete="off"
-                    v-model="form.initial_hour" placeholder="hh:mm:ss" class="form-control" v-mask="'##:##:##'" />
+                    name="formInitialHour" type="text" autocomplete="off"
+                    v-model="form.initial_hour" placeholder="HH:mm:ss" class="form-control" v-mask="'##:##:##'" />
                   <i v-show="errors.has('formInitialHour')" class="fa fa-warning"
                     :style="errors.has('formInitialHour') ? 'color: red !important' : ''"></i>
                   <span v-show="errors.has('formInitialHour')"
@@ -100,7 +100,7 @@
                 <div class="col-md-7">
                   <label>Data final:</label>
                   <input :style="errors.has('formFinalDate') ? 'border: 1px solid red !important;' : ''"
-                    v-validate="'required'" name="formFinalDate" type="text" autocomplete="off"
+                    name="formFinalDate" type="text" autocomplete="off"
                     v-model="form.finish_date" placeholder="dd/mm/yyyy" class="form-control" v-mask="'##/##/####'" />
                   <i v-show="errors.has('formFinalDate')" class="fa fa-warning"
                     :style="errors.has('formFinalDate') ? 'color: red !important' : ''"></i>
@@ -112,8 +112,8 @@
                 <div class="col-md-5">
                   <label>Hora final:</label>
                   <input :style="errors.has('formFinishHour') ? 'border: 1px solid red !important;' : ''"
-                    v-validate="'required'" name="formFinishHour" type="text" autocomplete="off"
-                    v-model="form.finish_hour" placeholder="hh:mm:ss" class="form-control" v-mask="'##:##:##'" />
+                    name="formFinishHour" type="text" autocomplete="off"
+                    v-model="form.finish_hour" placeholder="HH:mm:ss" class="form-control" v-mask="'##:##:##'" />
                   <i v-show="errors.has('formFinishHour')" class="fa fa-warning"
                     :style="errors.has('formFinishHour') ? 'color: red !important' : ''"></i>
                   <span v-show="errors.has('formFinishHour')"
@@ -124,7 +124,7 @@
                 <div class="col-md-7">
                   <label>Plano de Saúde:</label>
                   <select :style="errors.has('formPlan') ? 'border: 1px solid red !important;' : ''" name="formPlan"
-                    class="form-control" v-validate="'required'" style="width: 100%;" v-model="form.plan">
+                    class="form-control" style="width: 100%;" v-model="form.plan">
                     <option value="1">Particular</option>
                   </select>
                   <i v-show="errors.has('formPlan')" class="fa fa-warning"
@@ -137,7 +137,7 @@
                 <div class="col-md-5">
                   <label>Valor da consulta:</label>
                   <input :style="errors.has('formValue') ? 'border: 1px solid red !important;' : ''"
-                    v-validate="'required'" name="formValue" type="text" autocomplete="off" v-model="form.value"
+                    name="formValue" type="text" autocomplete="off" v-model="form.value"
                     class="form-control" v-money="money" />
                   <i v-show="errors.has('formValue')" class="fa fa-warning"
                     :style="errors.has('formValue') ? 'color: red !important' : ''"></i>
@@ -196,7 +196,7 @@
             <li class="list-group-item" v-bind:key="index" v-for="(value,index) in waitingList">
               <label>{{ value.patient_name }}</label>
               <h6>
-                {{ moment(new Date(value.start)).format('DD MMMM, hh:mm:ss') }} - {{ moment(new Date(value.end)).format('hh:mm:ss') }}
+                {{ moment(new Date(value.start)).format('DD MMMM, HH:mm:ss') }} - {{ moment(new Date(value.end)).format('HH:mm:ss') }}
               </h6>
               <h5>{{ value.specialtie_name }}</h5>
               <p></p>
@@ -252,8 +252,8 @@
           "specialty_id": null,
           "initial_date": null,
           "finish_date": null,
-          "initial_hour": null,
-          "finish_hour": null,
+          "initial_hour": this.moment().format('HH:mm:ss'),
+          "finish_hour": this.moment().format('HH:mm:ss'),
           "plan": null,
           "value": null
         },
@@ -327,8 +327,8 @@
         this.form.specialty_id = null;
         this.form.initial_date = null;
         this.form.finish_date = null;
-        this.form.initial_hour = null;
-        this.form.finish_hour = null;
+        this.form.initial_hour = this.moment().format('HH:mm:ss');
+        this.form.finish_hour = this.moment().format('HH:mm:ss');
         this.form.plan = null;
         this.form.value = null;
       },

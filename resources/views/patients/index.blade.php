@@ -52,7 +52,7 @@
                     <label>Nome:</label>
                     <input :style="errors.has('formName') ? 'border: 1px solid red !important;' : ''" name="formName"
                            type="text" autocomplete="off"
-                           v-model="form.name" v-validate="'required'"
+                           v-model="form.name"
                            class="form-control"/>
                     <i v-show="errors.has('formName')" class="fa fa-warning"
                        :style="errors.has('formName') ? 'color: red !important' : ''"></i>
@@ -75,8 +75,10 @@
                 </div>
                 <div class="col-md-3">
                     <label>Data Nasc.:</label>
-                    <datepicker name="formBirthdayDate" placeholder="Data Nasc" :value="form.birthday_date"
-                                @set="setData"></datepicker>
+                    <input name="issuanceDate" type="text" autocomplete="off"
+                        v-model="form.birthday_date" placeholder="Data Nasc" class="form-control" v-mask="'##/##/####'" />
+                    <!-- <datepicker name="formBirthdayDate" placeholder="Data Nasc" :value="form.birthday_date"
+                                @set="setData"></datepicker> -->
                 </div>
                 <div class="col-md-3">
                     <label>Telefone:</label>

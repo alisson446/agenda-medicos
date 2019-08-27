@@ -92719,7 +92719,7 @@ var content = __webpack_require__(181);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(9)("3f549ba8", content, false, {});
+var update = __webpack_require__(9)("2d997170", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -93661,7 +93661,7 @@ var content = __webpack_require__(195);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(9)("67432316", content, false, {});
+var update = __webpack_require__(9)("42756ed5", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -94002,8 +94002,8 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
         "specialty_id": null,
         "initial_date": null,
         "finish_date": null,
-        "initial_hour": null,
-        "finish_hour": null,
+        "initial_hour": this.moment().format('HH:mm:ss'),
+        "finish_hour": this.moment().format('HH:mm:ss'),
         "plan": null,
         "value": null
       },
@@ -94088,8 +94088,8 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
       this.form.specialty_id = null;
       this.form.initial_date = null;
       this.form.finish_date = null;
-      this.form.initial_hour = null;
-      this.form.finish_hour = null;
+      this.form.initial_hour = this.moment().format('HH:mm:ss');
+      this.form.finish_hour = this.moment().format('HH:mm:ss');
       this.form.plan = null;
       this.form.value = null;
     },
@@ -98315,12 +98315,6 @@ var render = function() {
                               {
                                 directives: [
                                   {
-                                    name: "validate",
-                                    rawName: "v-validate",
-                                    value: "required",
-                                    expression: "'required'"
-                                  },
-                                  {
                                     name: "model",
                                     rawName: "v-model",
                                     value: _vm.form.patient_id,
@@ -98413,12 +98407,6 @@ var render = function() {
                               "select",
                               {
                                 directives: [
-                                  {
-                                    name: "validate",
-                                    rawName: "v-validate",
-                                    value: "required",
-                                    expression: "'required'"
-                                  },
                                   {
                                     name: "model",
                                     rawName: "v-model",
@@ -98517,12 +98505,6 @@ var render = function() {
                               {
                                 directives: [
                                   {
-                                    name: "validate",
-                                    rawName: "v-validate",
-                                    value: "required",
-                                    expression: "'required'"
-                                  },
-                                  {
                                     name: "model",
                                     rawName: "v-model",
                                     value: _vm.form.specialty_id,
@@ -98620,12 +98602,6 @@ var render = function() {
                           _c("input", {
                             directives: [
                               {
-                                name: "validate",
-                                rawName: "v-validate",
-                                value: "required",
-                                expression: "'required'"
-                              },
-                              {
                                 name: "model",
                                 rawName: "v-model",
                                 value: _vm.form.initial_date,
@@ -98707,12 +98683,6 @@ var render = function() {
                           _c("input", {
                             directives: [
                               {
-                                name: "validate",
-                                rawName: "v-validate",
-                                value: "required",
-                                expression: "'required'"
-                              },
-                              {
                                 name: "model",
                                 rawName: "v-model",
                                 value: _vm.form.initial_hour,
@@ -98733,7 +98703,7 @@ var render = function() {
                               name: "formInitialHour",
                               type: "text",
                               autocomplete: "off",
-                              placeholder: "hh:mm:ss"
+                              placeholder: "HH:mm:ss"
                             },
                             domProps: { value: _vm.form.initial_hour },
                             on: {
@@ -98793,12 +98763,6 @@ var render = function() {
                           _vm._v(" "),
                           _c("input", {
                             directives: [
-                              {
-                                name: "validate",
-                                rawName: "v-validate",
-                                value: "required",
-                                expression: "'required'"
-                              },
                               {
                                 name: "model",
                                 rawName: "v-model",
@@ -98881,12 +98845,6 @@ var render = function() {
                           _c("input", {
                             directives: [
                               {
-                                name: "validate",
-                                rawName: "v-validate",
-                                value: "required",
-                                expression: "'required'"
-                              },
-                              {
                                 name: "model",
                                 rawName: "v-model",
                                 value: _vm.form.finish_hour,
@@ -98907,7 +98865,7 @@ var render = function() {
                               name: "formFinishHour",
                               type: "text",
                               autocomplete: "off",
-                              placeholder: "hh:mm:ss"
+                              placeholder: "HH:mm:ss"
                             },
                             domProps: { value: _vm.form.finish_hour },
                             on: {
@@ -98969,12 +98927,6 @@ var render = function() {
                             "select",
                             {
                               directives: [
-                                {
-                                  name: "validate",
-                                  rawName: "v-validate",
-                                  value: "required",
-                                  expression: "'required'"
-                                },
                                 {
                                   name: "model",
                                   rawName: "v-model",
@@ -99059,12 +99011,6 @@ var render = function() {
                           _vm._v(" "),
                           _c("input", {
                             directives: [
-                              {
-                                name: "validate",
-                                rawName: "v-validate",
-                                value: "required",
-                                expression: "'required'"
-                              },
                               {
                                 name: "model",
                                 rawName: "v-model",
@@ -99346,11 +99292,11 @@ var render = function() {
                             _vm._s(
                               _vm
                                 .moment(new Date(value.start))
-                                .format("DD MMMM, hh:mm:ss")
+                                .format("DD MMMM, HH:mm:ss")
                             ) +
                             " - " +
                             _vm._s(
-                              _vm.moment(new Date(value.end)).format("hh:mm:ss")
+                              _vm.moment(new Date(value.end)).format("HH:mm:ss")
                             ) +
                             "\n            "
                         )
@@ -99605,7 +99551,7 @@ var content = __webpack_require__(210);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(9)("3404d3db", content, false, {});
+var update = __webpack_require__(9)("72b9777b", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -100015,7 +99961,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         formatDates: function formatDates(data) {
             data.reminderDate = __WEBPACK_IMPORTED_MODULE_0_moment___default()(data.reminder).format('DD/MM/YYYY');
-            data.reminderHour = __WEBPACK_IMPORTED_MODULE_0_moment___default()(data.reminder).format('hh:mm:ss');
+            data.reminderHour = __WEBPACK_IMPORTED_MODULE_0_moment___default()(data.reminder).format('HH:mm:ss');
             return data;
         },
         del: function del(index) {
@@ -100093,7 +100039,7 @@ var render = function() {
                   _c("td", [
                     _vm._v(
                       _vm._s(
-                        _vm.moment(value.reminder).format("DD/MM/YYYY hh:mm:ss")
+                        _vm.moment(value.reminder).format("DD/MM/YYYY HH:mm:ss")
                       )
                     )
                   ]),
@@ -100185,12 +100131,6 @@ var render = function() {
                           "select",
                           {
                             directives: [
-                              {
-                                name: "validate",
-                                rawName: "v-validate",
-                                value: "required",
-                                expression: "'required'"
-                              },
                               {
                                 name: "model",
                                 rawName: "v-model",
@@ -100288,12 +100228,6 @@ var render = function() {
                           {
                             directives: [
                               {
-                                name: "validate",
-                                rawName: "v-validate",
-                                value: "required",
-                                expression: "'required'"
-                              },
-                              {
                                 name: "model",
                                 rawName: "v-model",
                                 value: _vm.form.patient_id,
@@ -100384,12 +100318,6 @@ var render = function() {
                         _c("input", {
                           directives: [
                             {
-                              name: "validate",
-                              rawName: "v-validate",
-                              value: "required",
-                              expression: "'required'"
-                            },
-                            {
                               name: "model",
                               rawName: "v-model",
                               value: _vm.form.note,
@@ -100456,12 +100384,6 @@ var render = function() {
                       _vm._v(" "),
                       _c("input", {
                         directives: [
-                          {
-                            name: "validate",
-                            rawName: "v-validate",
-                            value: "required",
-                            expression: "'required'"
-                          },
                           {
                             name: "model",
                             rawName: "v-model",
@@ -100544,12 +100466,6 @@ var render = function() {
                       _c("input", {
                         directives: [
                           {
-                            name: "validate",
-                            rawName: "v-validate",
-                            value: "required",
-                            expression: "'required'"
-                          },
-                          {
                             name: "model",
                             rawName: "v-model",
                             value: _vm.form.reminderHour,
@@ -100570,7 +100486,7 @@ var render = function() {
                           name: "formReminderHour",
                           type: "text",
                           autocomplete: "off",
-                          placeholder: "hh:mm:ss"
+                          placeholder: "HH:mm:ss"
                         },
                         domProps: { value: _vm.form.reminderHour },
                         on: {
@@ -100686,7 +100602,7 @@ if (false) {
 /* 216 */
 /***/ (function(module, exports) {
 
-// removed by extract-text-webpack-plugin
+throw new Error("Module build failed: ModuleBuildError: Module build failed: Error: Missing binding /home/alissonoliveira/projetos/agenda-medicos/node_modules/node-sass/vendor/linux-x64-64/binding.node\nNode Sass could not find a binding for your current environment: Linux 64-bit with Node.js 10.x\n\nFound bindings for the following environments:\n  - Linux 64-bit with Node.js 8.x\n\nThis usually happens because your environment has changed since running `npm install`.\nRun `npm rebuild node-sass` to download the binding for your current environment.\n    at module.exports (/home/alissonoliveira/projetos/agenda-medicos/node_modules/node-sass/lib/binding.js:15:13)\n    at Object.<anonymous> (/home/alissonoliveira/projetos/agenda-medicos/node_modules/node-sass/lib/index.js:14:35)\n    at Module._compile (internal/modules/cjs/loader.js:776:30)\n    at Object.Module._extensions..js (internal/modules/cjs/loader.js:787:10)\n    at Module.load (internal/modules/cjs/loader.js:653:32)\n    at tryModuleLoad (internal/modules/cjs/loader.js:593:12)\n    at Function.Module._load (internal/modules/cjs/loader.js:585:3)\n    at Module.require (internal/modules/cjs/loader.js:690:17)\n    at require (internal/modules/cjs/helpers.js:25:18)\n    at Object.<anonymous> (/home/alissonoliveira/projetos/agenda-medicos/node_modules/sass-loader/lib/loader.js:3:14)\n    at Module._compile (internal/modules/cjs/loader.js:776:30)\n    at Object.Module._extensions..js (internal/modules/cjs/loader.js:787:10)\n    at Module.load (internal/modules/cjs/loader.js:653:32)\n    at tryModuleLoad (internal/modules/cjs/loader.js:593:12)\n    at Function.Module._load (internal/modules/cjs/loader.js:585:3)\n    at Module.require (internal/modules/cjs/loader.js:690:17)\n    at require (internal/modules/cjs/helpers.js:25:18)\n    at loadLoader (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/loadLoader.js:18:17)\n    at iteratePitchingLoaders (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:169:2)\n    at iteratePitchingLoaders (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:165:10)\n    at /home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:176:18\n    at loadLoader (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/loadLoader.js:47:3)\n    at iteratePitchingLoaders (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:169:2)\n    at iteratePitchingLoaders (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:165:10)\n    at /home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:176:18\n    at loadLoader (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/loadLoader.js:47:3)\n    at iteratePitchingLoaders (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:169:2)\n    at iteratePitchingLoaders (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:165:10)\n    at /home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:176:18\n    at loadLoader (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/loadLoader.js:47:3)\n    at runLoaders (/home/alissonoliveira/projetos/agenda-medicos/node_modules/webpack/lib/NormalModule.js:195:19)\n    at /home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:367:11\n    at /home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:172:11\n    at loadLoader (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/loadLoader.js:32:11)\n    at iteratePitchingLoaders (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:169:2)\n    at iteratePitchingLoaders (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:165:10)\n    at /home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:176:18\n    at loadLoader (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/loadLoader.js:47:3)\n    at iteratePitchingLoaders (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:169:2)\n    at iteratePitchingLoaders (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:165:10)\n    at /home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:176:18\n    at loadLoader (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/loadLoader.js:47:3)\n    at iteratePitchingLoaders (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:169:2)\n    at iteratePitchingLoaders (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:165:10)\n    at /home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:176:18\n    at loadLoader (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/loadLoader.js:47:3)\n    at iteratePitchingLoaders (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:169:2)\n    at runLoaders (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:365:2)\n    at NormalModule.doBuild (/home/alissonoliveira/projetos/agenda-medicos/node_modules/webpack/lib/NormalModule.js:182:3)\n    at NormalModule.build (/home/alissonoliveira/projetos/agenda-medicos/node_modules/webpack/lib/NormalModule.js:275:15)\n    at Compilation.buildModule (/home/alissonoliveira/projetos/agenda-medicos/node_modules/webpack/lib/Compilation.js:157:10)\n    at moduleFactory.create (/home/alissonoliveira/projetos/agenda-medicos/node_modules/webpack/lib/Compilation.js:460:10)\n    at factory (/home/alissonoliveira/projetos/agenda-medicos/node_modules/webpack/lib/NormalModuleFactory.js:243:5)\n    at applyPluginsAsyncWaterfall (/home/alissonoliveira/projetos/agenda-medicos/node_modules/webpack/lib/NormalModuleFactory.js:94:13)\n    at /home/alissonoliveira/projetos/agenda-medicos/node_modules/tapable/lib/Tapable.js:268:11\n    at NormalModuleFactory.params.normalModuleFactory.plugin (/home/alissonoliveira/projetos/agenda-medicos/node_modules/webpack/lib/CompatibilityPlugin.js:52:5)\n    at NormalModuleFactory.applyPluginsAsyncWaterfall (/home/alissonoliveira/projetos/agenda-medicos/node_modules/tapable/lib/Tapable.js:272:13)\n    at resolver (/home/alissonoliveira/projetos/agenda-medicos/node_modules/webpack/lib/NormalModuleFactory.js:69:10)\n    at process.nextTick (/home/alissonoliveira/projetos/agenda-medicos/node_modules/webpack/lib/NormalModuleFactory.js:196:7)\n    at process._tickCallback (internal/process/next_tick.js:61:11)");
 
 /***/ })
 /******/ ]);

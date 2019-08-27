@@ -55,7 +55,7 @@
                     <label>Nome:</label>
                     <input :style="errors.has('formName') ? 'border: 1px solid red !important;' : ''" name="formName"
                            type="text" autocomplete="off"
-                           v-model="form.name" v-validate="'required'"
+                           v-model="form.name"
                            class="form-control"/>
                     <i v-show="errors.has('formName')" class="fa fa-warning"
                        :style="errors.has('formName') ? 'color: red !important' : ''"></i>
@@ -66,7 +66,7 @@
                     <label>Email:</label>
                     <input :style="errors.has('formEmail') ? 'border: 1px solid red !important;' : ''" type="email"
                            name="formEmail"
-                           autocomplete="off" v-validate="'required'" v-model="form.email" class="form-control"/>
+                           autocomplete="off" v-model="form.email" class="form-control"/>
                     <i v-show="errors.has('formEmail')" class="fa fa-warning"
                        :style="errors.has('formEmail') ? 'color: red !important' : ''"></i>
                     <span v-show="errors.has('formEmail')"
@@ -78,7 +78,7 @@
                     <label>Telefone:</label>
                     <input :style="errors.has('formPhoneNumber') ? 'border: 1px solid red !important;' : ''"
                            type="text" autocomplete="off" v-model="form.phone_number"
-                           class="form-control" name="formPhoneNumber" v-validate="'required'"
+                           class="form-control" name="formPhoneNumber"
                            v-mask="'(##) ####-####'"/>
                     <i v-show="errors.has('formPhoneNumber')" class="fa fa-warning"
                        :style="errors.has('formPhoneNumber') ? 'color: red !important' : ''"></i>
@@ -89,7 +89,7 @@
                     <label>Celular:</label>
                     <input :style="errors.has('formCellNumber') ? 'border: 1px solid red !important;' : ''" type="text"
                            autocomplete="off" v-model="form.cell_number" class="form-control"
-                           name="formCellNumber" v-validate="'required'" v-mask="'(##) #####-####'"/>
+                           name="formCellNumber" v-mask="'(##) #####-####'"/>
                     <i v-show="errors.has('formCellNumber')" class="fa fa-warning"
                        :style="errors.has('formCellNumber') ? 'color: red !important' : ''"></i>
                     <span v-show="errors.has('formCellNumber')"
@@ -100,7 +100,7 @@
                 <div class="col-md-4">
                     <label>Especialidades:</label>
                     <multiselect multiple :style="errors.has('specialties') ? 'border: 1px solid red !important;' : ''"
-                                 name="specialties" v-validate="'required'" v-model="form.specialties"
+                                 name="specialties" v-model="form.specialties"
                                  :options="listSpecialties" :multiple="true" :close-on-select="false"
                                  :clear-on-select="false" :preserve-search="true" placeholder="Escolha..." label="name"
                                  track-by="name" :preselect-first="true">
@@ -118,7 +118,7 @@
                     <select :style="errors.has('allows_docking') ? 'border: 1px solid red !important;' : ''"
                             name="allows_docking"
                             class="form-control" style="width: 100%;" v-model="form.allows_docking"
-                            v-validate="'required'">
+                        >
                         <option value="1">Sim</option>
                         <option value="0">Não</option>
                     </select>
@@ -131,7 +131,7 @@
                     <label>Sexo:</label>
                     <select :style="errors.has('formGender') ? 'border: 1px solid red !important;' : ''"
                             name="formGender"
-                            class="form-control" style="width: 100%;" v-model="form.gender" v-validate="'required'">
+                            class="form-control" style="width: 100%;" v-model="form.gender">
                         <option value="M">Masculino</option>
                         <option value="F">Feminino</option>
                         <option value="O">Outros</option>
@@ -144,10 +144,10 @@
                 <div class="col-md-3">
                     <label>Data Nasc.:</label>
                     <input :style="errors.has('formBirthdayDate') ? 'border: 1px solid red !important;' : ''"
-                        v-validate="'required'" name="formBirthdayDate" type="text" autocomplete="off"
+                     name="formBirthdayDate" type="text" autocomplete="off"
                         v-model="form.birthday_date" placeholder="Data Nasc" class="form-control" v-mask="'##/##/####'" />
                     {{-- <datepicker :style="errors.has('formBirthdayDate') ? 'border: 1px solid red !important;' : ''"
-                                name="formBirthdayDate" v-validate="'required'"
+                                name="formBirthdayDate"
                                 placeholder="Data Nasc" :value="form.birthday_date" @set="setData" v-mask="'##/##/####'"></datepicker> --}}
                     <i v-show="errors.has('formBirthdayDate')" class="fa fa-warning"
                        :style="errors.has('formBirthdayDate') ? 'color: red !important' : ''"></i>
@@ -176,7 +176,7 @@
                                     <div class="col-md-4">
                                         <label>CPF:</label>
                                         <input :style="errors.has('cpf') ? 'border: 1px solid red !important;' : ''"
-                                               v-validate="'required'" name="cpf" type="text" autocomplete="off"
+                                             name="cpf" type="text" autocomplete="off"
                                                v-model="form.cpf"
                                                class="form-control" v-mask="'###.###.###-##'"/>
                                         <i v-show="errors.has('cpf')" class="fa fa-warning"
@@ -187,7 +187,7 @@
                                     <div class="col-md-4">
                                         <label>Identidade:</label>
                                         <input :style="errors.has('identity') ? 'border: 1px solid red !important;' : ''"
-                                               v-validate="'required'" name="identity" type="text" autocomplete="off"
+                                             name="identity" type="text" autocomplete="off"
                                                v-model="form.identity"
                                                class="form-control"/>
                                         <i v-show="errors.has('identity')" class="fa fa-warning"
@@ -198,11 +198,11 @@
                                     <div class="col-md-2">
                                         <label>Data emissão:</label>
                                         <input :style="errors.has('issuanceDate') ? 'border: 1px solid red !important;' : ''"
-                                            v-validate="'required'" name="issuanceDate" type="text" autocomplete="off"
+                                         name="issuanceDate" type="text" autocomplete="off"
                                             v-model="form.issuance_date" placeholder="Data emissão" class="form-control" v-mask="'##/##/####'" />
                                         {{-- <datepicker
                                                 :style="errors.has('issuanceDate') ? 'border: 1px solid red !important;' : ''"
-                                                v-validate="'required'" name="issuanceDate" placeholder="Data emissão"
+                                             name="issuanceDate" placeholder="Data emissão"
                                                 :value="form.issuance_date" v-mask="'##/##/####'"
                                                 @set="setDataIssuanceDate"></datepicker> --}}
                                         <i v-show="errors.has('issuanceDate')" class="fa fa-warning"
@@ -213,7 +213,7 @@
                                     <div class="col-md-2">
                                         <label>Órgão emissor:</label>
                                         <input :style="errors.has('issuingAgency') ? 'border: 1px solid red !important;' : ''"
-                                               v-validate="'required'" name="issuingAgency" type="text"
+                                             name="issuingAgency" type="text"
                                                autocomplete="off" v-model="form.issuing_agency"
                                                class="form-control"/>
                                         <i v-show="errors.has('issuingAgency')" class="fa fa-warning"
@@ -229,7 +229,7 @@
                                         <label>Cep:</label>
                                         <div class="input-group input-group-sm">
                                             <input :style="errors.has('formAddressCep') ? 'border: 1px solid red !important;' : ''"
-                                                   v-validate="'required'" name="formAddressCep" type="text"
+                                                 name="formAddressCep" type="text"
                                                    class="form-control" autocomplete="off"
                                                    v-model="form.address_cep" v-mask="'#####-###'">
                                             <span class="input-group-btn" @click="searchByCep()">
@@ -248,7 +248,7 @@
                                     <div class="col-md-4">
                                         <label>Logradouro:</label>
                                         <input :style="errors.has('formAddressStreet') ? 'border: 1px solid red !important;' : ''"
-                                               v-validate="'required'" name="formAddressStreet" type="text"
+                                             name="formAddressStreet" type="text"
                                                autocomplete="off" v-model="form.address_street"
                                                class="form-control"/>
                                         <i v-show="errors.has('formAddressStreet')" class="fa fa-warning"
@@ -259,7 +259,7 @@
                                     <div class="col-md-4">
                                         <label>Número:</label>
                                         <input :style="errors.has('formAddressNumber') ? 'border: 1px solid red !important;' : ''"
-                                               v-validate="'required'" name="formAddressNumber" type="number" min="0"
+                                             name="formAddressNumber" type="number" min="0"
                                                autocomplete="off"
                                                v-model="form.address_number" class="form-control"/>
                                         <i v-show="errors.has('formAddressNumber')" class="fa fa-warning"
@@ -280,7 +280,7 @@
                                     <div class="col-md-4">
                                         <label>País:</label>
                                         <select :style="errors.has('countryId') ? 'border: 1px solid red !important;' : ''"
-                                                v-validate="'required'" name="countryId"
+                                             name="countryId"
                                                 @change="changeAddress($event,'country')"
                                                 class="form-control country_id" style="width: 100%;"
                                                 v-model="form.country_id">
@@ -296,7 +296,7 @@
                                     <div class="col-md-4">
                                         <label>Estado:</label>
                                         <select :style="errors.has('stateId') ? 'border: 1px solid red !important;' : ''"
-                                                v-validate="'required'" name="stateId"
+                                             name="stateId"
                                                 @change="changeAddress($event,'state')" disabled="disabled"
                                                 class="form-control state_id" style="width: 100%;"
                                                 v-model="form.state_id">
@@ -312,7 +312,7 @@
                                     <div class="col-md-4">
                                         <label>Cidade:</label>
                                         <select :style="errors.has('cityId') ? 'border: 1px solid red !important;' : ''"
-                                                v-validate="'required'" name="cityId" disabled="disabled"
+                                             name="cityId" disabled="disabled"
                                                 class="form-control city_id"
                                                 style="width: 100%;" v-model="form.city_id">
                                             <option v-for="(value,index) in listCities" :value="value.id">@{{ value.name
@@ -333,7 +333,7 @@
                                         <select :style="errors.has('professional_advice_id') ? 'border: 1px solid red !important;' : ''"
                                                 name="professional_advice_id"
                                                 class="form-control" style="width: 100%;"
-                                                v-model="form.professional_advice_id" v-validate="'required'">
+                                                v-model="form.professional_advice_id">
                                             <option v-for="(value,index) in listProfessionalAdvices" :value="value.id">
                                                 @{{ value.name }}
                                             </option>
@@ -346,7 +346,7 @@
                                     <div class="col-md-4">
                                         <label>Número</label>
                                         <input :style="errors.has('professional_advice_number') ? 'border: 1px solid red !important;' : ''"
-                                               v-validate="'required'" name="professional_advice_number" type="text"
+                                             name="professional_advice_number" type="text"
                                                autocomplete="off"
                                                v-model="form.professional_advice_number"
                                                class="form-control"/>
@@ -358,7 +358,7 @@
                                     <div class="col-md-2">
                                         <label>Estado:</label>
                                         <select :style="errors.has('professionalAdviceStateId') ? 'border: 1px solid red !important;' : ''"
-                                                v-validate="'required'" name="professionalAdviceStateId"
+                                             name="professionalAdviceStateId"
                                                 class="form-control professionalAdviceStateId" style="width: 100%;"
                                                 v-model="form.professional_advice_state_id">
                                             <option v-for="(value,index) in listStatesProfessionalAdvice"
@@ -376,7 +376,7 @@
                                         <select :style="errors.has('professional_advice_type') ? 'border: 1px solid red !important;' : ''"
                                                 name="professional_advice_type"
                                                 class="form-control" style="width: 100%;"
-                                                v-model="form.professional_advice_type" v-validate="'required'">
+                                                v-model="form.professional_advice_type">
                                             <option value="fisica">Física</option>
                                             <option value="juridica">Jurídica</option>
                                         </select>

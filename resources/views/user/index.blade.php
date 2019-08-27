@@ -61,7 +61,7 @@
                     <div class="form-group">
                         <label>Nome:</label>
                         <input :style="errors.has('formName') ? 'border: 1px solid red !important;' : ''"
-                               v-validate="'required'" name="formName" type="text" autocomplete="off"
+                               name="formName" type="text" autocomplete="off"
                                v-model="form.name" class="form-control"/>
                         <i v-show="errors.has('formName')" class="fa fa-warning"
                            :style="errors.has('formName') ? 'color: red !important' : ''"></i>
@@ -71,7 +71,7 @@
                     <div class="form-group">
                         <label>Email:</label>
                         <input :style="errors.has('formEmail') ? 'border: 1px solid red !important;' : ''"
-                               v-validate="'required'" name="formEmail" type="email" autocomplete="off"
+                               name="formEmail" type="email" autocomplete="off"
                                v-model="form.email" class="form-control"/>
                         <i v-show="errors.has('formEmail')" class="fa fa-warning"
                            :style="errors.has('formEmail') ? 'color: red !important' : ''"></i>
