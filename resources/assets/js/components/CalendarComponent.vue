@@ -172,13 +172,13 @@
                 <input class="form-check-input" type="checkbox" v-model="doctorFilter" :value="value.id" :id="value.id">
                 <label class="form-check-label" :for="value.id">
                   {{ value.name }}
+                  <button
+                    type="button"
+                    :title="value.status"
+                    :class="value.status === 'Ocupado' ? 'btn btn-warning btn-circle' : 'btn btn-success btn-circle'"
+                  >
+                  </button>
                 </label>
-                <button
-                  type="button"
-                  :title="value.status"
-                  :class="value.status === 'Ocupado' ? 'btn btn-warning btn-circle' : 'btn btn-success btn-circle'"
-                >
-                </button>
               </div>
             </li>
           </ul>

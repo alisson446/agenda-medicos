@@ -99213,18 +99213,17 @@ var render = function() {
                             _vm._v(
                               "\n                " +
                                 _vm._s(value.name) +
-                                "\n              "
-                            )
+                                "\n                "
+                            ),
+                            _c("button", {
+                              class:
+                                value.status === "Ocupado"
+                                  ? "btn btn-warning btn-circle"
+                                  : "btn btn-success btn-circle",
+                              attrs: { type: "button", title: value.status }
+                            })
                           ]
-                        ),
-                        _vm._v(" "),
-                        _c("button", {
-                          class:
-                            value.status === "Ocupado"
-                              ? "btn btn-warning btn-circle"
-                              : "btn btn-success btn-circle",
-                          attrs: { type: "button", title: value.status }
-                        })
+                        )
                       ])
                     ]
                   )
