@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Services\DoctorsService;
 use App\Services\DoctorsSpecialtiesService;
 use App\Services\ProfessionalAdvicesService;
+use App\Services\SchedulesService;
 use Illuminate\Http\Request;
 
 class DoctorsController extends Controller
@@ -12,12 +13,18 @@ class DoctorsController extends Controller
     protected $doctorsService;
     protected $professionalAdvicesService;
     protected $doctorsSpecialtiesService;
+    protected $schedulesService;
 
-    public function __construct(DoctorsService $doctorsService, ProfessionalAdvicesService $professionalAdvicesService, DoctorsSpecialtiesService $doctorsSpecialtiesService)
-    {
+    public function __construct(
+        DoctorsService $doctorsService,
+        ProfessionalAdvicesService $professionalAdvicesService,
+        DoctorsSpecialtiesService $doctorsSpecialtiesService,
+        SchedulesService $schedulesService
+    ) {
         $this->doctorsService = $doctorsService;
         $this->professionalAdvicesService = $professionalAdvicesService;
         $this->doctorsSpecialtiesService = $doctorsSpecialtiesService;
+        $this->schedulesService = $schedulesService;
     }
 
     public function index(Request $request)
@@ -33,11 +40,16 @@ class DoctorsController extends Controller
 
     public function getDoctors()
     {
+        date_default_timezone_set('America/Sao_Paulo');
+
         $doctors = $this->doctorsService->getAll();
         foreach ($doctors as $key => $doctor) {
             $doctors[$key]['specialties'] = [];
             $specialties = $this->doctorsSpecialtiesService->getAllByDoctorId($doctor['id']);
             $doctors[$key]['specialties'] = $specialties;
+
+            $status = $this->schedulesService->getByDoctorPeriod($doctor['id'], date('Y-m-d'), date('H:i:s'));
+            $doctors[$key]['status'] = count($status) ? 'Ocupado' : 'Livre';
         }
         return $doctors;
     }

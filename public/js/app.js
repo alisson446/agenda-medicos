@@ -92719,7 +92719,7 @@ var content = __webpack_require__(181);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(9)("2d997170", content, false, {});
+var update = __webpack_require__(9)("3f549ba8", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -93660,7 +93660,7 @@ var content = __webpack_require__(195);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(9)("42756ed5", content, false, {});
+var update = __webpack_require__(9)("67432316", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -93958,6 +93958,11 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -94024,36 +94029,22 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
     }
   },
   mounted: function mounted() {
-    var _this = this;
-
     Vue.set(this, "events", []);
-    axios.get("/doctors/list").then(function (res) {
-      Vue.set(_this, "listDoctors", res.data);
-    });
+    this.refreshDoctorsList();
   },
 
   methods: {
-    changeDoctor: function changeDoctor(event) {
-      var _this2 = this;
-
-      var val = event.target.value;
-      axios.post("/schedules/list", {
-        "doctor_id": val
-      }).then(function (res) {
-        Vue.set(_this2, "events", res.data);
-      });
-    },
     editEvent: function editEvent(arg) {
-      var _this3 = this;
+      var _this = this;
 
       this.btnSaveModal = "Editar";
       axios.get("/patients/list").then(function (res) {
-        Vue.set(_this3, "listPatients", res.data);
+        Vue.set(_this, "listPatients", res.data);
       });
       axios.post("/doctors/getSpecialtiesByDoctor", {
         "id": this.form.doctor_id
       }).then(function (res) {
-        Vue.set(_this3, "listSpecialties", res.data);
+        Vue.set(_this, "listSpecialties", res.data);
       });
 
       this.titleModal = "<i class='fa fa-fw fa-stethoscope'></i> Edição de consulta";
@@ -94094,14 +94085,14 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
       this.form.value = null;
     },
     openAdd: function openAdd(argDate) {
-      var _this4 = this;
+      var _this2 = this;
 
       this.resetForm();
       this.$validator.reset();
       this.btnSaveModal = "Salvar";
 
       axios.get("/patients/list").then(function (res) {
-        Vue.set(_this4, "listPatients", res.data);
+        Vue.set(_this2, "listPatients", res.data);
       });
 
       this.setIntervalDates(argDate);
@@ -94128,7 +94119,8 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
             }
 
             Vue.set(self, "events", events);
-            self.refreshWaitinList();
+            self.refreshWaitingList();
+            self.refreshDoctorsList();
 
             swal("Sucesso!", value.id === null ? "Consulta cadastrada com sucesso!" : "Consulta editada com sucesso!", 'success');
             setTimeout(function () {
@@ -94163,7 +94155,8 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
             events.splice(eventIndex, 1);
 
             Vue.set(self, "events", events);
-            self.refreshWaitinList();
+            self.refreshWaitingList();
+            self.refreshDoctorsList();
 
             swal("Consulta deletada com sucesso!", { icon: "success" });
             jQuery("#modalForm").modal('hide');
@@ -94195,13 +94188,20 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
         "finish_hour": (endD.getHours().length === 1 ? parseInt("0" + endD.getHours()) : endD.getHours()) + ":" + (endD.getMinutes().length === 1 ? parseInt("0" + endD.getMinutes()) : endD.getMinutes()) + ":" + (endD.getSeconds().length === 1 ? parseInt("0" + endD.getSeconds()) : endD.getSeconds())
       };
     },
-    refreshWaitinList: function refreshWaitinList() {
-      var _this5 = this;
+    refreshDoctorsList: function refreshDoctorsList() {
+      var _this3 = this;
+
+      axios.get("/doctors/list").then(function (res) {
+        Vue.set(_this3, "listDoctors", res.data);
+      });
+    },
+    refreshWaitingList: function refreshWaitingList() {
+      var _this4 = this;
 
       axios.post("/schedules/waitingList", {
         "doctor_id": this.doctorFilter
       }).then(function (res) {
-        Vue.set(_this5, "waitingList", res.data);
+        Vue.set(_this4, "waitingList", res.data);
       });
     },
 
@@ -94212,23 +94212,23 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
       return this.indexToUpdate;
     },
     doctorFilter: function doctorFilter(newValue, oldValue) {
-      var _this6 = this;
+      var _this5 = this;
 
       axios.post("/schedules/list", {
         "doctor_id": newValue
       }).then(function (res) {
-        Vue.set(_this6, "events", res.data);
+        Vue.set(_this5, "events", res.data);
       });
 
-      this.refreshWaitinList();
+      this.refreshWaitingList();
     },
     doctor_id: function doctor_id(newValue, oldValue) {
-      var _this7 = this;
+      var _this6 = this;
 
       axios.post("/doctors/getSpecialtiesByDoctor", {
         "id": newValue
       }).then(function (res) {
-        Vue.set(_this7, "listSpecialties", res.data);
+        Vue.set(_this6, "listSpecialties", res.data);
       });
     }
   }
@@ -99219,8 +99219,11 @@ var render = function() {
                         ),
                         _vm._v(" "),
                         _c("button", {
-                          staticClass: "btn btn-primary btn-circle",
-                          attrs: { type: "button" }
+                          class:
+                            value.status === "Ocupado"
+                              ? "btn btn-warning btn-circle"
+                              : "btn btn-success btn-circle",
+                          attrs: { type: "button", title: value.status }
                         })
                       ])
                     ]
@@ -99556,7 +99559,7 @@ var content = __webpack_require__(210);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(9)("72b9777b", content, false, {});
+var update = __webpack_require__(9)("3404d3db", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -100507,7 +100510,7 @@ if (false) {
 /* 216 */
 /***/ (function(module, exports) {
 
-throw new Error("Module build failed: ModuleBuildError: Module build failed: Error: Missing binding /home/alissonoliveira/projetos/agenda-medicos/node_modules/node-sass/vendor/linux-x64-64/binding.node\nNode Sass could not find a binding for your current environment: Linux 64-bit with Node.js 10.x\n\nFound bindings for the following environments:\n  - Linux 64-bit with Node.js 8.x\n\nThis usually happens because your environment has changed since running `npm install`.\nRun `npm rebuild node-sass` to download the binding for your current environment.\n    at module.exports (/home/alissonoliveira/projetos/agenda-medicos/node_modules/node-sass/lib/binding.js:15:13)\n    at Object.<anonymous> (/home/alissonoliveira/projetos/agenda-medicos/node_modules/node-sass/lib/index.js:14:35)\n    at Module._compile (internal/modules/cjs/loader.js:776:30)\n    at Object.Module._extensions..js (internal/modules/cjs/loader.js:787:10)\n    at Module.load (internal/modules/cjs/loader.js:653:32)\n    at tryModuleLoad (internal/modules/cjs/loader.js:593:12)\n    at Function.Module._load (internal/modules/cjs/loader.js:585:3)\n    at Module.require (internal/modules/cjs/loader.js:690:17)\n    at require (internal/modules/cjs/helpers.js:25:18)\n    at Object.<anonymous> (/home/alissonoliveira/projetos/agenda-medicos/node_modules/sass-loader/lib/loader.js:3:14)\n    at Module._compile (internal/modules/cjs/loader.js:776:30)\n    at Object.Module._extensions..js (internal/modules/cjs/loader.js:787:10)\n    at Module.load (internal/modules/cjs/loader.js:653:32)\n    at tryModuleLoad (internal/modules/cjs/loader.js:593:12)\n    at Function.Module._load (internal/modules/cjs/loader.js:585:3)\n    at Module.require (internal/modules/cjs/loader.js:690:17)\n    at require (internal/modules/cjs/helpers.js:25:18)\n    at loadLoader (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/loadLoader.js:18:17)\n    at iteratePitchingLoaders (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:169:2)\n    at iteratePitchingLoaders (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:165:10)\n    at /home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:176:18\n    at loadLoader (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/loadLoader.js:47:3)\n    at iteratePitchingLoaders (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:169:2)\n    at iteratePitchingLoaders (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:165:10)\n    at /home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:176:18\n    at loadLoader (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/loadLoader.js:47:3)\n    at iteratePitchingLoaders (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:169:2)\n    at iteratePitchingLoaders (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:165:10)\n    at /home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:176:18\n    at loadLoader (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/loadLoader.js:47:3)\n    at runLoaders (/home/alissonoliveira/projetos/agenda-medicos/node_modules/webpack/lib/NormalModule.js:195:19)\n    at /home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:367:11\n    at /home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:172:11\n    at loadLoader (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/loadLoader.js:32:11)\n    at iteratePitchingLoaders (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:169:2)\n    at iteratePitchingLoaders (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:165:10)\n    at /home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:176:18\n    at loadLoader (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/loadLoader.js:47:3)\n    at iteratePitchingLoaders (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:169:2)\n    at iteratePitchingLoaders (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:165:10)\n    at /home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:176:18\n    at loadLoader (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/loadLoader.js:47:3)\n    at iteratePitchingLoaders (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:169:2)\n    at iteratePitchingLoaders (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:165:10)\n    at /home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:176:18\n    at loadLoader (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/loadLoader.js:47:3)\n    at iteratePitchingLoaders (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:169:2)\n    at runLoaders (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:365:2)\n    at NormalModule.doBuild (/home/alissonoliveira/projetos/agenda-medicos/node_modules/webpack/lib/NormalModule.js:182:3)\n    at NormalModule.build (/home/alissonoliveira/projetos/agenda-medicos/node_modules/webpack/lib/NormalModule.js:275:15)\n    at Compilation.buildModule (/home/alissonoliveira/projetos/agenda-medicos/node_modules/webpack/lib/Compilation.js:157:10)\n    at moduleFactory.create (/home/alissonoliveira/projetos/agenda-medicos/node_modules/webpack/lib/Compilation.js:460:10)\n    at factory (/home/alissonoliveira/projetos/agenda-medicos/node_modules/webpack/lib/NormalModuleFactory.js:243:5)\n    at applyPluginsAsyncWaterfall (/home/alissonoliveira/projetos/agenda-medicos/node_modules/webpack/lib/NormalModuleFactory.js:94:13)\n    at /home/alissonoliveira/projetos/agenda-medicos/node_modules/tapable/lib/Tapable.js:268:11\n    at NormalModuleFactory.params.normalModuleFactory.plugin (/home/alissonoliveira/projetos/agenda-medicos/node_modules/webpack/lib/CompatibilityPlugin.js:52:5)\n    at NormalModuleFactory.applyPluginsAsyncWaterfall (/home/alissonoliveira/projetos/agenda-medicos/node_modules/tapable/lib/Tapable.js:272:13)\n    at resolver (/home/alissonoliveira/projetos/agenda-medicos/node_modules/webpack/lib/NormalModuleFactory.js:69:10)\n    at process.nextTick (/home/alissonoliveira/projetos/agenda-medicos/node_modules/webpack/lib/NormalModuleFactory.js:196:7)\n    at process._tickCallback (internal/process/next_tick.js:61:11)");
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);

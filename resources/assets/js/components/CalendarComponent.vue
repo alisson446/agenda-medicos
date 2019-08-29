@@ -173,7 +173,12 @@
                 <label class="form-check-label" :for="value.id">
                   {{ value.name }}
                 </label>
-                <button type="button" class="btn btn-primary btn-circle"></button>
+                <button
+                  type="button"
+                  :title="value.status"
+                  :class="value.status === 'Ocupado' ? 'btn btn-warning btn-circle' : 'btn btn-success btn-circle'"
+                >
+                </button>
               </div>
             </li>
           </ul>
@@ -275,19 +280,9 @@
     },
     mounted() {
       Vue.set(this, "events", []);
-      axios.get("/doctors/list").then((res) => {
-        Vue.set(this, "listDoctors", res.data);
-      });
+      this.refreshDoctorsList();
     },
     methods: {
-      changeDoctor(event) {
-        let val = event.target.value;
-        axios.post("/schedules/list", {
-          "doctor_id": val
-        }).then((res) => {
-          Vue.set(this, "events", res.data);
-        });
-      },
       editEvent(arg) {
         this.btnSaveModal = "Editar";
         axios.get("/patients/list").then((res) => {
@@ -364,7 +359,8 @@
               }
 
               Vue.set(self, "events", events);
-              self.refreshWaitinList();
+              self.refreshWaitingList();
+              self.refreshDoctorsList();
 
               swal(
                 "Sucesso!",
@@ -401,7 +397,8 @@
                 events.splice(eventIndex, 1);
 
                 Vue.set(self, "events", events);
-                self.refreshWaitinList();
+                self.refreshWaitingList();
+                self.refreshDoctorsList();
 
                 swal("Consulta deletada com sucesso!", { icon: "success", });
                 jQuery("#modalForm").modal('hide');
@@ -440,7 +437,12 @@
             .getSeconds().length === 1 ? parseInt("0" + endD.getSeconds()) : endD.getSeconds())
         };
       },
-      refreshWaitinList() {
+      refreshDoctorsList() {
+        axios.get("/doctors/list").then((res) => {
+          Vue.set(this, "listDoctors", res.data);
+        });
+      },
+      refreshWaitingList() {
         axios.post("/schedules/waitingList", {
           "doctor_id": this.doctorFilter
         }).then((res) => {
@@ -460,7 +462,7 @@
           Vue.set(this, "events", res.data);
         });
 
-        this.refreshWaitinList();
+        this.refreshWaitingList();
       },
       doctor_id(newValue, oldValue) {
         axios.post("/doctors/getSpecialtiesByDoctor", {

@@ -1,6 +1,7 @@
 <?php
 namespace App\Services;
 use App\Model\Schedules;
+use Illuminate\Support\Facades\DB;
 class SchedulesService extends Service
 {
     public function __construct()
@@ -22,6 +23,21 @@ class SchedulesService extends Service
             $doctor_ids = [ $doctor_ids ];
 
         $schedules = Schedules::whereIn('doctor_id', $doctor_ids)->get();
+        return $schedules;
+    }
+
+    public function getByDoctorPeriod($doctor_ids, $date, $time)
+    {
+        $schedules = DB::select("
+                        select * from schedules
+                        where
+                            doctor_id = $doctor_ids and
+                            (
+                                '$date' between STR_TO_DATE(initial_date, '%d/%m/%Y') and STR_TO_DATE(finish_date, '%d/%m/%Y') and
+                                '$time' between initial_hour and finish_hour
+                            )
+                    ");
+
         return $schedules;
     }
 
