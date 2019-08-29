@@ -92719,7 +92719,7 @@ var content = __webpack_require__(181);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(9)("3f549ba8", content, false, {});
+var update = __webpack_require__(9)("2d997170", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -93483,7 +93483,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         save: function save() {
-            this.$root.add(this.data);
             this.$emit("submit", this.data);
         }
     }
@@ -93549,7 +93548,7 @@ var render = function() {
                     "button",
                     {
                       staticClass: "btn btn-primary",
-                      attrs: { type: "submit" },
+                      attrs: { type: "button" },
                       on: {
                         click: function($event) {
                           return _vm.save()
@@ -93661,7 +93660,7 @@ var content = __webpack_require__(195);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(9)("67432316", content, false, {});
+var update = __webpack_require__(9)("42756ed5", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -93687,7 +93686,7 @@ exports.i(__webpack_require__(197), "");
 exports.i(__webpack_require__(198), "");
 
 // module
-exports.push([module.i, "\n.fc-title {\n  color: #fff;\n}\n.fc-title:hover {\n  cursor: pointer;\n}\n", ""]);
+exports.push([module.i, "\n.fc-title {\n  color: #fff;\n}\n.fc-title:hover {\n  cursor: pointer;\n}\n.btn-circle {\n  width: 14px;\n  height: 14px;\n  padding: 6px 0px;\n  border-radius: 15px;\n  text-align: center;\n  font-size: 12px;\n  line-height: 1.42857;\n  cursor: default;\n}\n", ""]);
 
 // exports
 
@@ -93748,6 +93747,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_moment__);
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
+//
 //
 //
 //
@@ -99216,7 +99216,12 @@ var render = function() {
                                 "\n              "
                             )
                           ]
-                        )
+                        ),
+                        _vm._v(" "),
+                        _c("button", {
+                          staticClass: "btn btn-primary btn-circle",
+                          attrs: { type: "button" }
+                        })
                       ])
                     ]
                   )
@@ -99271,7 +99276,7 @@ var render = function() {
                 _c(
                   "h5",
                   { staticClass: "card-title" },
-                  [_c("center", [_vm._v("Lista de espera e encaixe")])],
+                  [_c("center", [_vm._v("Lista de espera")])],
                   1
                 )
               ]),
@@ -99551,7 +99556,7 @@ var content = __webpack_require__(210);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(9)("3404d3db", content, false, {});
+var update = __webpack_require__(9)("72b9777b", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -99858,22 +99863,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -99884,14 +99873,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             list: [],
             form: {
                 "id": null,
-                "patient_id": null,
-                "doctor_id": null,
+                "user_id": null,
                 "note": null,
                 "reminderDate": null,
                 "reminderHour": null
             },
-            listPatients: [],
-            listDoctors: []
+            listUsers: []
         };
     },
     mounted: function mounted() {
@@ -99901,19 +99888,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         axios.get("/notes/list").then(function (res) {
             Vue.set(_this, "list", res.data);
         });
-        axios.get("/doctors/list").then(function (res) {
-            Vue.set(_this, "listDoctors", res.data);
-        });
-        axios.get("/patients/list").then(function (res) {
-            Vue.set(_this, "listPatients", res.data);
+        axios.get("/user/list").then(function (res) {
+            Vue.set(_this, "listUsers", res.data);
         });
     },
 
     methods: {
         resetForm: function resetForm() {
             this.form.id = null;
-            this.form.patient_id = null;
-            this.form.doctor_id = null;
+            this.form.user_id = null;
             this.form.note = null;
             this.form.reminderDate = null;
             this.form.reminderHour = null;
@@ -99944,13 +99927,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         edit: function edit(index) {
             var _this2 = this;
 
-            axios.get("/patients/list").then(function (res) {
-                Vue.set(_this2, "listPatients", res.data);
-            });
-            axios.post("/doctors/getSpecialtiesByDoctor", {
-                "id": this.form.doctor_id
-            }).then(function (res) {
-                Vue.set(_this2, "listSpecialties", res.data);
+            axios.get("/user/list").then(function (res) {
+                Vue.set(_this2, "listUsers", res.data);
             });
 
             this.titleModal = "<i class='fa fa-fw fa-stethoscope'></i> Edição de Anotação";
@@ -99963,6 +99941,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             data.reminderDate = __WEBPACK_IMPORTED_MODULE_0_moment___default()(data.reminder).format('DD/MM/YYYY');
             data.reminderHour = __WEBPACK_IMPORTED_MODULE_0_moment___default()(data.reminder).format('HH:mm:ss');
             return data;
+        },
+        finish: function finish(index) {
+            var self = this;
+
+            swal({
+                title: "Você tem certeza?",
+                text: "Realmente deseja concluir esta Anotação?",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true
+            }).then(function (willFinish) {
+                if (willFinish) {
+                    swal("Anotação concluida com sucesso!", {
+                        icon: "success"
+                    });
+                    axios.put("/notes/finish/" + self.list[index].id, { 'finished': 1 }).then(function () {
+                        self.list.splice(index, 1);
+                    });
+                }
+            });
         },
         del: function del(index) {
             var self = this;
@@ -100030,9 +100028,7 @@ var render = function() {
                     )
                   ]),
                   _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(value.doctor_name))]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(value.patient_name))]),
+                  _c("td", [_vm._v(_vm._s(value.user_name))]),
                   _vm._v(" "),
                   _c("td", [_vm._v(_vm._s(value.note))]),
                   _vm._v(" "),
@@ -100041,6 +100037,22 @@ var render = function() {
                       _vm._s(
                         _vm.moment(value.reminder).format("DD/MM/YYYY HH:mm:ss")
                       )
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("td", [
+                    _c(
+                      "a",
+                      {
+                        staticClass: "btn btn-sm",
+                        attrs: { href: "javascript:void(0)" },
+                        on: {
+                          click: function($event) {
+                            return _vm.finish(index)
+                          }
+                        }
+                      },
+                      [_c("i", { staticClass: "fa fa-check" })]
                     )
                   ]),
                   _vm._v(" "),
@@ -100090,261 +100102,172 @@ var render = function() {
               on: { submit: _vm.add }
             },
             [
-              _c(
-                "form",
-                {
+              _c("form", [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.form.id,
+                      expression: "form.id"
+                    }
+                  ],
+                  attrs: { type: "hidden", value: "" },
+                  domProps: { value: _vm.form.id },
                   on: {
-                    submit: function($event) {
-                      $event.preventDefault()
-                      return _vm.add($event)
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.form, "id", $event.target.value)
                     }
                   }
-                },
-                [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.form.id,
-                        expression: "form.id"
-                      }
-                    ],
-                    attrs: { type: "hidden", value: "" },
-                    domProps: { value: _vm.form.id },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.form, "id", $event.target.value)
-                      }
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "row" }, [
-                    _c("div", { staticClass: "col-md-12" }, [
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("label", [_vm._v("Médico:")]),
-                        _vm._v(" "),
-                        _c(
-                          "select",
-                          {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.form.doctor_id,
-                                expression: "form.doctor_id"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            staticStyle: { width: "100%" },
-                            style: _vm.errors.has("formDoctor")
-                              ? "border: 1px solid red !important;"
-                              : "",
-                            attrs: { name: "formDoctor" },
-                            on: {
-                              change: function($event) {
-                                var $$selectedVal = Array.prototype.filter
-                                  .call($event.target.options, function(o) {
-                                    return o.selected
-                                  })
-                                  .map(function(o) {
-                                    var val = "_value" in o ? o._value : o.value
-                                    return val
-                                  })
-                                _vm.$set(
-                                  _vm.form,
-                                  "doctor_id",
-                                  $event.target.multiple
-                                    ? $$selectedVal
-                                    : $$selectedVal[0]
-                                )
-                              }
-                            }
-                          },
-                          _vm._l(_vm.listDoctors, function(value, index) {
-                            return _c(
-                              "option",
-                              { key: index, domProps: { value: value.id } },
-                              [
-                                _vm._v(
-                                  "\n                                        " +
-                                    _vm._s(value.name) +
-                                    "\n                                    "
-                                )
-                              ]
-                            )
-                          }),
-                          0
-                        ),
-                        _vm._v(" "),
-                        _c("i", {
-                          directives: [
-                            {
-                              name: "show",
-                              rawName: "v-show",
-                              value: _vm.errors.has("formDoctor"),
-                              expression: "errors.has('formDoctor')"
-                            }
-                          ],
-                          staticClass: "fa fa-warning",
-                          style: _vm.errors.has("formDoctor")
-                            ? "color: red !important"
-                            : ""
-                        }),
-                        _vm._v(" "),
-                        _c(
-                          "span",
-                          {
-                            directives: [
-                              {
-                                name: "show",
-                                rawName: "v-show",
-                                value: _vm.errors.has("formDoctor"),
-                                expression: "errors.has('formDoctor')"
-                              }
-                            ],
-                            style: _vm.errors.has("formDoctor")
-                              ? "color: red !important"
-                              : ""
-                          },
-                          [
-                            _vm._v(
-                              "\n                                    Médico é obrigatório!\n                                "
-                            )
-                          ]
-                        )
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-md-12" }, [
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("label", [_vm._v("Paciente:")]),
-                        _vm._v(" "),
-                        _c(
-                          "select",
-                          {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.form.patient_id,
-                                expression: "form.patient_id"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            staticStyle: { width: "100%" },
-                            style: _vm.errors.has("formPatient")
-                              ? "border: 1px solid red !important;"
-                              : "",
-                            attrs: { name: "formPatient" },
-                            on: {
-                              change: function($event) {
-                                var $$selectedVal = Array.prototype.filter
-                                  .call($event.target.options, function(o) {
-                                    return o.selected
-                                  })
-                                  .map(function(o) {
-                                    var val = "_value" in o ? o._value : o.value
-                                    return val
-                                  })
-                                _vm.$set(
-                                  _vm.form,
-                                  "patient_id",
-                                  $event.target.multiple
-                                    ? $$selectedVal
-                                    : $$selectedVal[0]
-                                )
-                              }
-                            }
-                          },
-                          _vm._l(_vm.listPatients, function(value, index) {
-                            return _c(
-                              "option",
-                              { key: index, domProps: { value: value.id } },
-                              [
-                                _vm._v(
-                                  "\n                                        " +
-                                    _vm._s(value.name) +
-                                    "\n                                    "
-                                )
-                              ]
-                            )
-                          }),
-                          0
-                        ),
-                        _vm._v(" "),
-                        _c("i", {
-                          directives: [
-                            {
-                              name: "show",
-                              rawName: "v-show",
-                              value: _vm.errors.has("formPatient"),
-                              expression: "errors.has('formPatient')"
-                            }
-                          ],
-                          staticClass: "fa fa-warning",
-                          style: _vm.errors.has("formPatient")
-                            ? "color: red !important"
-                            : ""
-                        }),
-                        _vm._v(" "),
-                        _c(
-                          "span",
-                          {
-                            directives: [
-                              {
-                                name: "show",
-                                rawName: "v-show",
-                                value: _vm.errors.has("formPatient"),
-                                expression: "errors.has('formPatient')"
-                              }
-                            ],
-                            style: _vm.errors.has("formPatient")
-                              ? "color: red !important"
-                              : ""
-                          },
-                          [_vm._v("Paciente é obrigatório!")]
-                        )
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-md-12" }, [
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("label", [_vm._v("Anotação:")]),
-                        _vm._v(" "),
-                        _c("input", {
+                }),
+                _vm._v(" "),
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-md-12" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", [_vm._v("Usuário:")]),
+                      _vm._v(" "),
+                      _c(
+                        "select",
+                        {
                           directives: [
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.form.note,
-                              expression: "form.note"
+                              value: _vm.form.user_id,
+                              expression: "form.user_id"
                             }
                           ],
                           staticClass: "form-control",
-                          style: _vm.errors.has("formNote")
+                          staticStyle: { width: "100%" },
+                          style: _vm.errors.has("formUser")
                             ? "border: 1px solid red !important;"
                             : "",
-                          attrs: {
-                            name: "formNote",
-                            type: "text",
-                            autocomplete: "off"
-                          },
-                          domProps: { value: _vm.form.note },
+                          attrs: { name: "formUser" },
                           on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(_vm.form, "note", $event.target.value)
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.$set(
+                                _vm.form,
+                                "user_id",
+                                $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              )
                             }
                           }
+                        },
+                        _vm._l(_vm.listUsers, function(value, index) {
+                          return _c(
+                            "option",
+                            { key: index, domProps: { value: value.id } },
+                            [
+                              _vm._v(
+                                "\n                                        " +
+                                  _vm._s(value.name) +
+                                  "\n                                    "
+                              )
+                            ]
+                          )
                         }),
-                        _vm._v(" "),
-                        _c("i", {
+                        0
+                      ),
+                      _vm._v(" "),
+                      _c("i", {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.errors.has("formUser"),
+                            expression: "errors.has('formUser')"
+                          }
+                        ],
+                        staticClass: "fa fa-warning",
+                        style: _vm.errors.has("formUser")
+                          ? "color: red !important"
+                          : ""
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "span",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.errors.has("formUser"),
+                              expression: "errors.has('formUser')"
+                            }
+                          ],
+                          style: _vm.errors.has("formUser")
+                            ? "color: red !important"
+                            : ""
+                        },
+                        [_vm._v("Usuário é obrigatório!")]
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-12" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", [_vm._v("Anotação:")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.note,
+                            expression: "form.note"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        style: _vm.errors.has("formNote")
+                          ? "border: 1px solid red !important;"
+                          : "",
+                        attrs: {
+                          name: "formNote",
+                          type: "text",
+                          autocomplete: "off"
+                        },
+                        domProps: { value: _vm.form.note },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.form, "note", $event.target.value)
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("i", {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.errors.has("formNote"),
+                            expression: "errors.has('formNote')"
+                          }
+                        ],
+                        staticClass: "fa fa-warning",
+                        style: _vm.errors.has("formNote")
+                          ? "color: red !important"
+                          : ""
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "span",
+                        {
                           directives: [
                             {
                               name: "show",
@@ -100353,76 +100276,76 @@ var render = function() {
                               expression: "errors.has('formNote')"
                             }
                           ],
-                          staticClass: "fa fa-warning",
                           style: _vm.errors.has("formNote")
                             ? "color: red !important"
                             : ""
-                        }),
-                        _vm._v(" "),
-                        _c(
-                          "span",
-                          {
-                            directives: [
-                              {
-                                name: "show",
-                                rawName: "v-show",
-                                value: _vm.errors.has("formNote"),
-                                expression: "errors.has('formNote')"
-                              }
-                            ],
-                            style: _vm.errors.has("formNote")
-                              ? "color: red !important"
-                              : ""
-                          },
-                          [_vm._v("Anotação é obrigatório!")]
-                        )
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-md-3" }, [
-                      _c("label", [_vm._v("Data Lembrete:")]),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.form.reminderDate,
-                            expression: "form.reminderDate"
-                          },
-                          {
-                            name: "mask",
-                            rawName: "v-mask",
-                            value: "##/##/####",
-                            expression: "'##/##/####'"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        style: _vm.errors.has("formReminderDate")
-                          ? "border: 1px solid red !important;"
-                          : "",
-                        attrs: {
-                          name: "formReminderDate",
-                          type: "text",
-                          autocomplete: "off",
-                          placeholder: "dd/mm/yyyy"
                         },
-                        domProps: { value: _vm.form.reminderDate },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.form,
-                              "reminderDate",
-                              $event.target.value
-                            )
-                          }
+                        [_vm._v("Anotação é obrigatório!")]
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-3" }, [
+                    _c("label", [_vm._v("Data Lembrete:")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.reminderDate,
+                          expression: "form.reminderDate"
+                        },
+                        {
+                          name: "mask",
+                          rawName: "v-mask",
+                          value: "##/##/####",
+                          expression: "'##/##/####'"
                         }
-                      }),
-                      _vm._v(" "),
-                      _c("i", {
+                      ],
+                      staticClass: "form-control",
+                      style: _vm.errors.has("formReminderDate")
+                        ? "border: 1px solid red !important;"
+                        : "",
+                      attrs: {
+                        name: "formReminderDate",
+                        type: "text",
+                        autocomplete: "off",
+                        placeholder: "dd/mm/yyyy"
+                      },
+                      domProps: { value: _vm.form.reminderDate },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.form,
+                            "reminderDate",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("i", {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.errors.has("formReminderDate"),
+                          expression: "errors.has('formReminderDate')"
+                        }
+                      ],
+                      staticClass: "fa fa-warning",
+                      style: _vm.errors.has("formReminderDate")
+                        ? "color: red !important"
+                        : ""
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "span",
+                      {
                         directives: [
                           {
                             name: "show",
@@ -100431,79 +100354,79 @@ var render = function() {
                             expression: "errors.has('formReminderDate')"
                           }
                         ],
-                        staticClass: "fa fa-warning",
                         style: _vm.errors.has("formReminderDate")
                           ? "color: red !important"
                           : ""
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "span",
-                        {
-                          directives: [
-                            {
-                              name: "show",
-                              rawName: "v-show",
-                              value: _vm.errors.has("formReminderDate"),
-                              expression: "errors.has('formReminderDate')"
-                            }
-                          ],
-                          style: _vm.errors.has("formReminderDate")
-                            ? "color: red !important"
-                            : ""
-                        },
-                        [
-                          _vm._v(
-                            "\n                                Data é obrigatório!\n                            "
-                          )
-                        ]
-                      )
-                    ]),
+                      },
+                      [
+                        _vm._v(
+                          "\n                                Data é obrigatório!\n                            "
+                        )
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-3" }, [
+                    _c("label", [_vm._v("Hora Lembrete:")]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "col-md-3" }, [
-                      _c("label", [_vm._v("Hora Lembrete:")]),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.form.reminderHour,
-                            expression: "form.reminderHour"
-                          },
-                          {
-                            name: "mask",
-                            rawName: "v-mask",
-                            value: "##:##:##",
-                            expression: "'##:##:##'"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        style: _vm.errors.has("formReminderHour")
-                          ? "border: 1px solid red !important;"
-                          : "",
-                        attrs: {
-                          name: "formReminderHour",
-                          type: "text",
-                          autocomplete: "off",
-                          placeholder: "HH:mm:ss"
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.reminderHour,
+                          expression: "form.reminderHour"
                         },
-                        domProps: { value: _vm.form.reminderHour },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.form,
-                              "reminderHour",
-                              $event.target.value
-                            )
-                          }
+                        {
+                          name: "mask",
+                          rawName: "v-mask",
+                          value: "##:##:##",
+                          expression: "'##:##:##'"
                         }
-                      }),
-                      _vm._v(" "),
-                      _c("i", {
+                      ],
+                      staticClass: "form-control",
+                      style: _vm.errors.has("formReminderHour")
+                        ? "border: 1px solid red !important;"
+                        : "",
+                      attrs: {
+                        name: "formReminderHour",
+                        type: "text",
+                        autocomplete: "off",
+                        placeholder: "HH:mm:ss"
+                      },
+                      domProps: { value: _vm.form.reminderHour },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.form,
+                            "reminderHour",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("i", {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.errors.has("formReminderHour"),
+                          expression: "errors.has('formReminderHour')"
+                        }
+                      ],
+                      staticClass: "fa fa-warning",
+                      style: _vm.errors.has("formReminderHour")
+                        ? "color: red !important"
+                        : ""
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "span",
+                      {
                         directives: [
                           {
                             name: "show",
@@ -100512,37 +100435,19 @@ var render = function() {
                             expression: "errors.has('formReminderHour')"
                           }
                         ],
-                        staticClass: "fa fa-warning",
                         style: _vm.errors.has("formReminderHour")
                           ? "color: red !important"
                           : ""
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "span",
-                        {
-                          directives: [
-                            {
-                              name: "show",
-                              rawName: "v-show",
-                              value: _vm.errors.has("formReminderHour"),
-                              expression: "errors.has('formReminderHour')"
-                            }
-                          ],
-                          style: _vm.errors.has("formReminderHour")
-                            ? "color: red !important"
-                            : ""
-                        },
-                        [
-                          _vm._v(
-                            "\n                                Hora é obrigatória!\n                            "
-                          )
-                        ]
-                      )
-                    ])
+                      },
+                      [
+                        _vm._v(
+                          "\n                                Hora é obrigatória!\n                            "
+                        )
+                      ]
+                    )
                   ])
-                ]
-              )
+                ])
+              ])
             ]
           )
         ],
@@ -100576,13 +100481,13 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", [_vm._v("Data")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Médico")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Paciente")]),
+        _c("th", [_vm._v("Usuário")]),
         _vm._v(" "),
         _c("th", [_vm._v("Descrição")]),
         _vm._v(" "),
         _c("th", [_vm._v("Lembrete")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Concluir")]),
         _vm._v(" "),
         _c("th", { staticClass: "dc_actions" }, [_vm._v("Ações")])
       ])
@@ -100602,7 +100507,7 @@ if (false) {
 /* 216 */
 /***/ (function(module, exports) {
 
-// removed by extract-text-webpack-plugin
+throw new Error("Module build failed: ModuleBuildError: Module build failed: Error: Missing binding /home/alissonoliveira/projetos/agenda-medicos/node_modules/node-sass/vendor/linux-x64-64/binding.node\nNode Sass could not find a binding for your current environment: Linux 64-bit with Node.js 10.x\n\nFound bindings for the following environments:\n  - Linux 64-bit with Node.js 8.x\n\nThis usually happens because your environment has changed since running `npm install`.\nRun `npm rebuild node-sass` to download the binding for your current environment.\n    at module.exports (/home/alissonoliveira/projetos/agenda-medicos/node_modules/node-sass/lib/binding.js:15:13)\n    at Object.<anonymous> (/home/alissonoliveira/projetos/agenda-medicos/node_modules/node-sass/lib/index.js:14:35)\n    at Module._compile (internal/modules/cjs/loader.js:776:30)\n    at Object.Module._extensions..js (internal/modules/cjs/loader.js:787:10)\n    at Module.load (internal/modules/cjs/loader.js:653:32)\n    at tryModuleLoad (internal/modules/cjs/loader.js:593:12)\n    at Function.Module._load (internal/modules/cjs/loader.js:585:3)\n    at Module.require (internal/modules/cjs/loader.js:690:17)\n    at require (internal/modules/cjs/helpers.js:25:18)\n    at Object.<anonymous> (/home/alissonoliveira/projetos/agenda-medicos/node_modules/sass-loader/lib/loader.js:3:14)\n    at Module._compile (internal/modules/cjs/loader.js:776:30)\n    at Object.Module._extensions..js (internal/modules/cjs/loader.js:787:10)\n    at Module.load (internal/modules/cjs/loader.js:653:32)\n    at tryModuleLoad (internal/modules/cjs/loader.js:593:12)\n    at Function.Module._load (internal/modules/cjs/loader.js:585:3)\n    at Module.require (internal/modules/cjs/loader.js:690:17)\n    at require (internal/modules/cjs/helpers.js:25:18)\n    at loadLoader (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/loadLoader.js:18:17)\n    at iteratePitchingLoaders (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:169:2)\n    at iteratePitchingLoaders (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:165:10)\n    at /home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:176:18\n    at loadLoader (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/loadLoader.js:47:3)\n    at iteratePitchingLoaders (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:169:2)\n    at iteratePitchingLoaders (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:165:10)\n    at /home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:176:18\n    at loadLoader (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/loadLoader.js:47:3)\n    at iteratePitchingLoaders (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:169:2)\n    at iteratePitchingLoaders (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:165:10)\n    at /home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:176:18\n    at loadLoader (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/loadLoader.js:47:3)\n    at runLoaders (/home/alissonoliveira/projetos/agenda-medicos/node_modules/webpack/lib/NormalModule.js:195:19)\n    at /home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:367:11\n    at /home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:172:11\n    at loadLoader (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/loadLoader.js:32:11)\n    at iteratePitchingLoaders (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:169:2)\n    at iteratePitchingLoaders (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:165:10)\n    at /home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:176:18\n    at loadLoader (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/loadLoader.js:47:3)\n    at iteratePitchingLoaders (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:169:2)\n    at iteratePitchingLoaders (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:165:10)\n    at /home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:176:18\n    at loadLoader (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/loadLoader.js:47:3)\n    at iteratePitchingLoaders (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:169:2)\n    at iteratePitchingLoaders (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:165:10)\n    at /home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:176:18\n    at loadLoader (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/loadLoader.js:47:3)\n    at iteratePitchingLoaders (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:169:2)\n    at runLoaders (/home/alissonoliveira/projetos/agenda-medicos/node_modules/loader-runner/lib/LoaderRunner.js:365:2)\n    at NormalModule.doBuild (/home/alissonoliveira/projetos/agenda-medicos/node_modules/webpack/lib/NormalModule.js:182:3)\n    at NormalModule.build (/home/alissonoliveira/projetos/agenda-medicos/node_modules/webpack/lib/NormalModule.js:275:15)\n    at Compilation.buildModule (/home/alissonoliveira/projetos/agenda-medicos/node_modules/webpack/lib/Compilation.js:157:10)\n    at moduleFactory.create (/home/alissonoliveira/projetos/agenda-medicos/node_modules/webpack/lib/Compilation.js:460:10)\n    at factory (/home/alissonoliveira/projetos/agenda-medicos/node_modules/webpack/lib/NormalModuleFactory.js:243:5)\n    at applyPluginsAsyncWaterfall (/home/alissonoliveira/projetos/agenda-medicos/node_modules/webpack/lib/NormalModuleFactory.js:94:13)\n    at /home/alissonoliveira/projetos/agenda-medicos/node_modules/tapable/lib/Tapable.js:268:11\n    at NormalModuleFactory.params.normalModuleFactory.plugin (/home/alissonoliveira/projetos/agenda-medicos/node_modules/webpack/lib/CompatibilityPlugin.js:52:5)\n    at NormalModuleFactory.applyPluginsAsyncWaterfall (/home/alissonoliveira/projetos/agenda-medicos/node_modules/tapable/lib/Tapable.js:272:13)\n    at resolver (/home/alissonoliveira/projetos/agenda-medicos/node_modules/webpack/lib/NormalModuleFactory.js:69:10)\n    at process.nextTick (/home/alissonoliveira/projetos/agenda-medicos/node_modules/webpack/lib/NormalModuleFactory.js:196:7)\n    at process._tickCallback (internal/process/next_tick.js:61:11)");
 
 /***/ })
 /******/ ]);

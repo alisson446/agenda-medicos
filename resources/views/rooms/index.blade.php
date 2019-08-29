@@ -34,8 +34,8 @@
         </tbody>
     </table>
 
-    <modal-component :title="titleModal" :data="form">
-        <form @submit.prevent="add">
+    <modal-component :title="titleModal" :data="form" @submit="add">
+        <form>
             <input type="hidden" v-model="form.id" value=""/>
             <div class="row">
                 <div class="col-md-12">

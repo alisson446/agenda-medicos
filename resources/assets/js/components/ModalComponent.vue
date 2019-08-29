@@ -23,7 +23,7 @@
                 </div>
 
                 <div class="modal-footer" v-show="this.$root.saving == null">
-                    <button type="submit" @click="save()" class="btn btn-primary">Salvar</button>
+                    <button type="button" @click="save()" class="btn btn-primary">Salvar</button>
                 </div>
                 <div class="sz_loading"></div>
             </div>
@@ -41,7 +41,6 @@
         },
         methods: {
             save() {
-                this.$root.add(this.data);
                 this.$emit("submit", this.data);
             }
         }

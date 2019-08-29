@@ -36,26 +36,26 @@ Route::middleware(['auth.doctor'])->group(function() {
     });
 
     Route::prefix('notes')->group(function() {
-		Route::get("/","NotesController@index")->name("notes");
-		Route::get("/list","NotesController@getnotes")->name("notes.list");
-		Route::post("/add","NotesController@makeAdd")->name("notes.make.add");
-		Route::delete("/delete/{id}","NotesController@delete")->name("notes.delete");
+        Route::get("/","NotesController@index")->name("notes");
+        Route::get("/list","NotesController@getnotes")->name("notes.list");
+        Route::post("/add","NotesController@makeAdd")->name("notes.make.add");
+        Route::put("/finish/{id}","NotesController@finish")->name("notes.finish");
+        Route::delete("/delete/{id}","NotesController@delete")->name("notes.delete");
     });
 
     Route::prefix('specialties')->group(function() {
-		Route::get("/","SpecialtiesController@index")->name("specialties");
-		Route::get("/list","SpecialtiesController@getSpecialties")->name("specialties.list");
-		Route::post("/add","SpecialtiesController@makeAdd")->name("specialties.make.add");
-		Route::delete("/delete/{id}","SpecialtiesController@delete")->name("specialties.delete");
+        Route::get("/","SpecialtiesController@index")->name("specialties");
+        Route::get("/list","SpecialtiesController@getSpecialties")->name("specialties.list");
+        Route::post("/add","SpecialtiesController@makeAdd")->name("specialties.make.add");
+        Route::delete("/delete/{id}","SpecialtiesController@delete")->name("specialties.delete");
     });
 
     Route::prefix('rooms')->group(function() {
-		Route::get("/","RoomsController@index")->name("rooms");
-		Route::get("/list","RoomsController@getrooms")->name("rooms.list");
-		Route::post("/add","RoomsController@makeAdd")->name("rooms.make.add");
-		Route::delete("/delete/{id}","RoomsController@delete")->name("rooms.delete");
+        Route::get("/","RoomsController@index")->name("rooms");
+        Route::get("/list","RoomsController@getrooms")->name("rooms.list");
+        Route::post("/add","RoomsController@makeAdd")->name("rooms.make.add");
+        Route::delete("/delete/{id}","RoomsController@delete")->name("rooms.delete");
     });
-
 
     Route::prefix('patients')->group(function() {
         Route::get("/","PatientsController@index")->name("patients");

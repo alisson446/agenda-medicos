@@ -10,7 +10,9 @@ class Notes extends Eloquent
         'id',
         'doctor_id',
         'patient_id',
+        'user_id',
         'note',
-        'reminder'
+        'reminder',
+        'finished'
     ];
 }

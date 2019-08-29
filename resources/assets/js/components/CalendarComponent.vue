@@ -173,6 +173,7 @@
                 <label class="form-check-label" :for="value.id">
                   {{ value.name }}
                 </label>
+                <button type="button" class="btn btn-primary btn-circle"></button>
               </div>
             </li>
           </ul>
@@ -190,7 +191,7 @@
       <div class="col-md-3" style="margin-top: 5em;">
         <div class="card">
           <div class="card-body">
-            <h5 class="card-title"><center>Lista de espera e encaixe</center></h5>
+            <h5 class="card-title"><center>Lista de espera</center></h5>
           </div>
           <ul class="list-group list-group-flush">
             <li class="list-group-item" v-bind:key="index" v-for="(value,index) in waitingList">
@@ -483,5 +484,16 @@
 
   .fc-title:hover {
     cursor: pointer;
+  }
+
+  .btn-circle {
+    width: 14px;
+    height: 14px;
+    padding: 6px 0px;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.42857;
+    cursor: default;
   }
 </style>

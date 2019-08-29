@@ -34,16 +34,14 @@ class NotesController extends Controller
     public function makeAdd(Request $request)
     {
         $id = $request->get("id");
-        $patient_id = $request->get("patient_id");
-        $doctor_id = $request->get("doctor_id");
+        $user_id = $request->get("user_id");
         $note = $request->get("note");
         $reminderDate = $request->get("reminderDate");
         $reminderHour = $request->get("reminderHour");
 
         $data = [
             "id" => $id,
-            "patient_id" => $patient_id,
-            "doctor_id" => $doctor_id,
+            "user_id" => $user_id,
             "note" => $note,
             "reminder" => SchedulesService::formatDate($reminderDate, $reminderHour),
         ];
@@ -54,6 +52,16 @@ class NotesController extends Controller
             unset($data["id"]);
             $this->notesService->create($data);
         }
+
+        return $this->notesService->getNotesDetailed();
+    }
+
+    public function finish(Request $request, $id)
+    {
+        $finished = $request->get("finished");
+
+        $data = [ "finished" => $finished ];
+        $this->notesService->update($data, $id);
 
         return $this->notesService->getNotesDetailed();
     }

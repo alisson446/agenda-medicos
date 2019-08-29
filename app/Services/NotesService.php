@@ -14,12 +14,11 @@ class NotesService extends Service
         $notes = Notes::
                         select(
                             'notes.*',
-                            'patients.name as patient_name',
-                            'doctors.name as doctor_name'
+                            'users.name as user_name'
                         )
-                        ->join('patients', 'patients.id', '=', 'notes.patient_id')
-                        ->join('doctors', 'doctors.id', '=', 'notes.doctor_id')
+                        ->join('users', 'users.id', '=', 'notes.user_id')
                         ->orderBy('updated_at', 'desc')
+                        ->where('finished', '=', 0)
                         ->get();
 
         return $notes;

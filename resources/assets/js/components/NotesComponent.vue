@@ -20,20 +20,23 @@
                     <thead>
                     <tr>
                         <th>Data</th>
-                        <th>Médico</th>
-                        <th>Paciente</th>
+                        <th>Usuário</th>
                         <th>Descrição</th>
                         <th>Lembrete</th>
+                        <th>Concluir</th>
                         <th class="dc_actions">Ações</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr :key="index" v-for="(value,index) in list">
                         <td>{{ moment(value.updated_at).format('DD/MM/YYYY') }}</td>
-                        <td>{{ value.doctor_name }}</td>
-                        <td>{{ value.patient_name }}</td>
+                        <td>{{ value.user_name }}</td>
                         <td>{{ value.note }}</td>
                         <td>{{ moment(value.reminder).format('DD/MM/YYYY HH:mm:ss') }}</td>
+                        <td>
+                            <a href="javascript:void(0)" class="btn btn-sm" v-on:click="finish(index)"><i
+                                        class="fa fa-check"></i></a>
+                        </td>
                         <td>
                             <a href="javascript:void(0)" class="btn btn-sm btn-primary" v-on:click="edit(index)"><i
                                         class="fa fa-edit"></i></a>
@@ -45,42 +48,23 @@
                 </table>
 
                 <modal-component id="modalNotes" :title="titleModal" :data="form" @submit="add">
-                    <form @submit.prevent="add">
+                    <form>
                         <input type="hidden" v-model="form.id" value=""/>
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label>Médico:</label>
-                                    <select :style="errors.has('formDoctor') ? 'border: 1px solid red !important;' : ''"
-                                        name="formDoctor" class="form-control" style="width: 100%;"
-                                        v-model="form.doctor_id">
-                                        <option v-bind:key="index" v-for="(value,index) in listDoctors" :value="value.id">
+                                    <label>Usuário:</label>
+                                    <select :style="errors.has('formUser') ? 'border: 1px solid red !important;' : ''"
+                                        name="formUser" class="form-control" style="width: 100%;"
+                                        v-model="form.user_id">
+                                        <option v-bind:key="index" v-for="(value,index) in listUsers" :value="value.id">
                                             {{ value.name }}
                                         </option>
                                     </select>
-                                    <i v-show="errors.has('formDoctor')" class="fa fa-warning"
-                                        :style="errors.has('formDoctor') ? 'color: red !important' : ''"></i>
-                                    <span v-show="errors.has('formDoctor')"
-                                        :style="errors.has('formDoctor') ? 'color: red !important' : ''">
-                                        Médico é obrigatório!
-                                    </span>
-                                </div>
-                            </div>
-
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label>Paciente:</label>
-                                    <select :style="errors.has('formPatient') ? 'border: 1px solid red !important;' : ''"
-                                        name="formPatient" class="form-control" style="width: 100%;"
-                                        v-model="form.patient_id">
-                                        <option v-bind:key="index" v-for="(value,index) in listPatients" :value="value.id">
-                                            {{ value.name }}
-                                        </option>
-                                    </select>
-                                    <i v-show="errors.has('formPatient')" class="fa fa-warning"
-                                        :style="errors.has('formPatient') ? 'color: red !important' : ''"></i>
-                                    <span v-show="errors.has('formPatient')"
-                                        :style="errors.has('formPatient') ? 'color: red !important' : ''">Paciente é obrigatório!</span>
+                                    <i v-show="errors.has('formUser')" class="fa fa-warning"
+                                        :style="errors.has('formUser') ? 'color: red !important' : ''"></i>
+                                    <span v-show="errors.has('formUser')"
+                                        :style="errors.has('formUser') ? 'color: red !important' : ''">Usuário é obrigatório!</span>
                                 </div>
                             </div>
 
@@ -138,14 +122,12 @@
                 list: [],
                 form: {
                     "id": null,
-                    "patient_id": null,
-                    "doctor_id": null,
+                    "user_id": null,
                     "note": null,
                     "reminderDate": null,
                     "reminderHour": null
                 },
-                listPatients: [],
-                listDoctors: [],
+                listUsers: []
             }
         },
         mounted() {
@@ -153,18 +135,14 @@
             axios.get("/notes/list").then((res) => {
                 Vue.set(this, "list", res.data)
             });
-            axios.get("/doctors/list").then((res) => {
-                Vue.set(this, "listDoctors", res.data);
-            });
-            axios.get("/patients/list").then((res) => {
-                Vue.set(this, "listPatients", res.data)
+            axios.get("/user/list").then((res) => {
+                Vue.set(this, "listUsers", res.data)
             });
         },
         methods: {
             resetForm() {
                 this.form.id = null;
-                this.form.patient_id = null;
-                this.form.doctor_id = null;
+                this.form.user_id = null;
                 this.form.note = null;
                 this.form.reminderDate = null;
                 this.form.reminderHour = null;
@@ -193,13 +171,8 @@
                 });
             },
             edit(index) {
-                axios.get("/patients/list").then((res) => {
-                    Vue.set(this, "listPatients", res.data)
-                });
-                axios.post("/doctors/getSpecialtiesByDoctor", {
-                    "id": this.form.doctor_id
-                }).then((res) => {
-                    Vue.set(this, "listSpecialties", res.data);
+                axios.get("/user/list").then((res) => {
+                    Vue.set(this, "listUsers", res.data)
                 });
 
                 this.titleModal = "<i class='fa fa-fw fa-stethoscope'></i> Edição de Anotação";
@@ -212,6 +185,28 @@
                 data.reminderDate = moment(data.reminder).format('DD/MM/YYYY');
                 data.reminderHour = moment(data.reminder).format('HH:mm:ss');
                 return data;
+            },
+            finish(index) {
+                let self = this;
+
+                swal({
+                    title: "Você tem certeza?",
+                    text: "Realmente deseja concluir esta Anotação?",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willFinish) => {
+                    if (willFinish) {
+                        swal("Anotação concluida com sucesso!", {
+                            icon: "success",
+                        });
+                        axios.put(`/notes/finish/${self.list[index].id}`, {'finished': 1})
+                        .then(function () {
+                            self.list.splice(index, 1);
+                        });
+                    }
+                });
             },
             del(index) {
                 let self = this;

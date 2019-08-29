@@ -8,8 +8,8 @@
 
 @section('content')
 
-    <modal-component id="modalPatient" :title="titleModal" :data="form" size="modal-lg">
-        <form @submit.prevent="add">
+    <modal-component id="modalPatient" :title="titleModal" :data="form" size="modal-lg" @submit="add">
+        <form>
             <input type="hidden" v-model="form.id" value=""/>
             <div class="row">
                 <div class="col-md-6">
